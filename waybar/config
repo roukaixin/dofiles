@@ -3,23 +3,14 @@
     "layer": "top",
     // Waybar position (top|bottom|left|right)
     "position": "top",
-    // Waybar height (to be removed for auto height)
-    "height": 32,
-    // Waybar width
-    "width": 1280,
     // Gaps between modules (4px)
     "spacing": 4,
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "wlr/taskbar"],
+    "modules-left": ["hyprland/workspaces", "wlr/taskbar", "hyprland/submap"],
     "modules-center": ["hyprland/window"],
     "modules-right": ["idle_inhibitor", "pulseaudio", "network", "temperature", "backlight", "battery", "clock", "tray"],
     // Modules configuration
     "hyprland/workspaces": {
-        // 是否显示全部工作空间
-        "active-only": false,
-        "all-outputs": true,
-        "disable-scroll": true,
-        "warp-on-scroll": false,
         "format": "{name}"
     },
     "wlr/taskbar": {
@@ -27,6 +18,10 @@
         "format": "{icon}",
         "icon-size": 20,
         "on-click": "activate"
+    },
+    "hyprland/window": {
+        "format": "{title}",
+        "separate-outputs": true
     },
     "hyprland/scratchpad": {
         "format": "{icon} {count}",
@@ -106,7 +101,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
+        "format": "{capacity}% {icon} ",
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
@@ -125,11 +120,11 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
+        "format": "{icon}  {volume}% {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
+        "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
