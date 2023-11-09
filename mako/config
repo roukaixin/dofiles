@@ -1,0 +1,4 @@
+
+# timeout
+# 通知多久消失
+default-timeout=5000
