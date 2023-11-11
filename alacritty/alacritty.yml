@@ -303,6 +303,15 @@ colors:
   #  magenta: '#b294bb'
   #  cyan:    '#8abeb7'
   #  white:   '#c5c8c6'
+  normal:
+    black:   '#073642'
+    red:     '#dc322f'
+    green:   '#859900'
+    yellow:  '#b58900'
+    blue:    '#81a2be'
+    magenta: '#d33682'
+    cyan:    '#2aa198'
+    white:   '#eee8d5'
 
   # Bright colors
   #bright:
@@ -314,6 +323,15 @@ colors:
   #  magenta: '#c397d8'
   #  cyan:    '#70c0b1'
   #  white:   '#eaeaea'
+  bright:
+    black:   '#002b36'
+    red:     '#cb4b16'
+    green:   '#586e75'
+    yellow:  '#657b83'
+    blue:    '#839496'
+    magenta: '#6c71c4'
+    cyan:    '#93a1a1'
+    white:   '#fdf6e3'
 
   # Dim colors
   #
