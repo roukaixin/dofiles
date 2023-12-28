@@ -122,56 +122,68 @@
   #multiplier: 3
 
 # Font configuration
-font:
+[font]
+  # Point size
+  size = 15.5
   # Normal (roman) font face
-  normal:
+  [font.normal]
+    family = "JetBrains Mono"
+    style = "Italic"
+  [font.bold]
+    family = "JetBrains Mono"
+    style = "Bold"
+  [font.italic]
+    family = "JetBrains Mono"
+    style = "Italic"
+  [font.bold_italic]
+    family = "JetBrains Mono"
+    style = "Bold Italic"
+# font:
+  # normal:
     # Font family
     #
     # Default:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: JetBrains Mono
+    # family:
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
-    style: Italic
+    # style: Italic
 
   # Bold font face
-  bold:
+  # bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: JetBrains Mono
+    # family: JetBrains Mono
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    # style: Bold
 
   # Italic font face
-  italic:
+  # italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: JetBrains Mono
+    # family: JetBrains Mono
 
     # The `style` can be specified to pick a specific face.
-    style: Italic
+    # style: Italic
 
   # Bold italic font face
-  bold_italic:
+  # bold_italic:
     # Font family
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: JetBrains Mono
+    # family: JetBrains Mono
 
     # The `style` can be specified to pick a specific face.
-    style: Bold Italic
-
-  # Point size
-  size: 15.5
+    # style: Bold Italic
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -198,14 +210,38 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-colors:
+[colors]
+  [colors.primary]
+    background = '#2e3440'
+    foreground = '#d8dee9'
+  [colors.normal]
+    black = '#3b4252'
+    red = '#bf616a'
+    green = '#a3be8c'
+    yellow = '#ebcb8b'
+    blue = '#81a1c1'
+    magenta = '#b48ead'
+    cyan = '#88c0d0'
+    white = '#e5e9f0'
+  [colors.bright]
+    black = '#4c566a'
+    red = '#bf616a'
+    green = '#a3be8c'
+    yellow = '#ebcb8b'
+    blue = '#81a1c1'
+    magenta = '#b48ead'
+    cyan = '#8fbcbb'
+    white = '#eceff4'
+
+# Colors (Tomorrow Night)
+# colors:
   # Default colors
   #primary:
   #  background: '#1d1f21'
   #  foreground: '#c5c8c6'
-  primary:
-    background: '#2e3440'
-    foreground: '#d8dee9'
+  # primary:
+    # background: '#2e3440'
+    # foreground: '#d8dee9'
 
 
     # Bright and dim foreground colors
@@ -307,15 +343,6 @@ colors:
   #  magenta: '#b294bb'
   #  cyan:    '#8abeb7'
   #  white:   '#c5c8c6'
-  normal:
-    black:   '#3b4252'
-    red:     '#bf616a'
-    green:   '#a3be8c'
-    yellow:  '#ebcb8b'
-    blue:    '#81a1c1'
-    magenta: '#b48ead'
-    cyan:    '#88c0d0'
-    white:   '#e5e9f0'
 
   # Bright colors
   #bright:
@@ -327,15 +354,6 @@ colors:
   #  magenta: '#c397d8'
   #  cyan:    '#70c0b1'
   #  white:   '#eaeaea'
-  bright:
-    black:   '#4c566a'
-    red:     '#bf616a'
-    green:   '#a3be8c'
-    yellow:  '#ebcb8b'
-    blue:    '#81a1c1'
-    magenta: '#b48ead'
-    cyan:    '#8fbcbb'
-    white:   '#eceff4'
 
   # Dim colors
   #
@@ -417,16 +435,28 @@ colors:
   # When set to `true`, selected text will be copied to the primary clipboard.
   #save_to_clipboard: false
 
-cursor:
+
+[cursor]
+  blink_interval = 600
+  blink_timeout = 0
+  unfocused_hollow = false
+  thickness = 0.28
+  [cursor.style]
+    shape = "Beam"
+    blinking = "On"
+  [cursor.vi_mode_style]
+    shape = "Block"
+
+# cursor:
   # Cursor style
-  style:
+  # style:
     # Cursor shape
     #
     # Values for `shape`:
     #   - ▇ Block
     #   - _ Underline
     #   - | Beam
-    shape: Beam
+    # shape: Beam
 
     # Cursor blinking state
     #
@@ -435,7 +465,7 @@ cursor:
     #   - Off: Disable blinking by default
     #   - On: Enable blinking by default
     #   - Always: Force the cursor to always blink
-    blinking: On
+    # blinking: On
 
   # Vi mode cursor style
   #
@@ -443,24 +473,24 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  vi_mode_style:
-    shape: Block
+  # vi_mode_style:
+    # shape: Block
 
   # Cursor blinking interval in milliseconds.
-  blink_interval: 600
+  # blink_interval: 600
 
   # Time after which cursor stops blinking, in seconds.
   #
   # Specifying '0' will disable timeout for blinking.
-  blink_timeout: 0
+  # blink_timeout: 0
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
-  unfocused_hollow: false
+  # unfocused_hollow: false
 
   # Thickness of the cursor relative to the cell width as floating point number
   # from `0.0` to `1.0`.
-  thickness: 0.28
+  # thickness: 0.28
 
 # Live config reload (changes require restart)
 #live_config_reload: true
