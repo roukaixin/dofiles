@@ -1,0 +1,56 @@
+(defwindow bar
+    :monitor 0
+    :geometry (geometry :x "0%"
+                        :y "8px"
+                        :width "99.5%"
+                        :height "26px"
+                        :anchor "top center"
+                )
+    :stacking "fg"
+    :focusable false
+    :exclusive true
+    :namespace true
+(box 
+    :class "bar" 
+    :space-evenly false
+    (left)
+)
+)
+
+(defwidget left []
+    (box
+      :width "100%"
+      :hexpand true
+      :space-evenly false
+      :halign "start"
+      (workspaces)
+      (systrays)
+    )
+)
+
+
+; 工作区
+(deflisten workspaces :initial "[]" "bash ./workspaces")
+(defwidget workspaces []
+    (eventbox
+        (box 
+            :space-evenly true
+            (for workspace in workspaces
+                (button
+                    :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    (label
+                        :text
+                        `${workspace.id}`
+                    )
+                )
+            )
+        )
+    )
+)
+
+(defwidget systrays []
+    (systray
+      :class "systray"
+      :packdirection "right"
+    )
+)
