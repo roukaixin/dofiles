@@ -3,18 +3,18 @@
     :geometry (geometry :x "0%"
                         :y "8px"
                         :width "99.5%"
-                        :height "26px"
+                        :height "25px"
                         :anchor "top center"
                 )
     :stacking "fg"
     :focusable false
     :exclusive true
     :namespace true
-(box 
-    :class "bar" 
-    :space-evenly false
-    (left)
-)
+    (box
+        :class "bar"
+        :space-evenly false
+        (left)
+    )
 )
 
 (defwidget left []
@@ -30,17 +30,19 @@
 
 
 ; 工作区
-(deflisten workspaces :initial "[]" "bash ./workspaces")
+(deflisten workspaces :initial "[]" "bash ./scripts/get-workspaces")
 (defwidget workspaces []
     (eventbox
-        (box 
+        (box
             :space-evenly true
+            :class "_workspaces"
             (for workspace in workspaces
                 (button
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    :class `workspace ${workspace.state == 2 ? "on" : "off"}`
                     (label
-                        :text
-                        `${workspace.id}`
+                        :text `${workspace.id}`
+                        :class "workspace font"
                     )
                 )
             )

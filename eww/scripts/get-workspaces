@@ -1,8 +1,9 @@
 #!/bin/sh
 
 workspaces() {
-    # 0:没东西 1:有东西 2:当前所在页
+    # 工作区，0:没东西 1:有东西 2:当前所在页
     WORKSPACE_WINDOWS=$(hyprctl workspaces -j | jq 'map({key: .id | tostring, value: 1}) | from_entries')
+    # 当前所在工作区
     WORKSPACE_ACTIVE=$(hyprctl monitors -j | jq '.[] | select(.focused) | .activeWorkspace.id')
     # 有窗口的工作区
 	seq 1 10 | jq --argjson st "${WORKSPACE_WINDOWS}" --arg ac "${WORKSPACE_ACTIVE}" --slurp -Mc 'map({id:.,state: ($st[. | tostring]//0)}) | .[($ac | tonumber)-1] |= {id: $ac,state: 2}' | jq -c 'map(select(.state != 0) | {id, state})'
