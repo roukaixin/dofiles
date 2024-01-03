@@ -3,7 +3,7 @@
     :geometry (geometry :x "0%"
                         :y "8px"
                         :width "99.5%"
-                        :height "25px"
+                        :height "26px"
                         :anchor "top center"
                 )
     :stacking "fg"
@@ -11,7 +11,6 @@
     :exclusive true
     :namespace true
     (box
-        :class "bar"
         :space-evenly false
         (left)
     )
@@ -35,14 +34,13 @@
     (eventbox
         (box
             :space-evenly true
-            :class "_workspaces"
             (for workspace in workspaces
                 (button
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    :class `workspace ${workspace.state == 2 ? "on" : "off"}`
+                    :class "${workspace.state == 2 ? 'workspace-sel' : 'workspace-norm'}"
                     (label
-                        :text `${workspace.id}`
-                        :class "workspace font"
+                        :text "${workspace.id}"
+                        :class "workspace-label"
                     )
                 )
             )
