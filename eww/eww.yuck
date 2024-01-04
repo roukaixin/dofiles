@@ -13,6 +13,8 @@
     (box
         :space-evenly false
         (left)
+        (center)
+        (right)
     )
 )
 
@@ -23,9 +25,32 @@
       :space-evenly false
       :halign "start"
       (workspaces)
+    )
+)
+
+(defwidget center []
+    (box
+      :width "100%"
+      :hexpand true
+      :space-evenly false
+      :halign "start"
+    )
+)
+
+(defwidget right []
+    (box
+      :width "100%"
+      :hexpand true
+      :space-evenly false
+      :halign "end"
+      (cpus)
+      (temps)
+      (datatimes)
       (systrays)
     )
 )
+
+
 
 
 ; 工作区
@@ -37,7 +62,7 @@
             (for workspace in workspaces
                 (button
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    :class "${workspace.state == 2 ? 'workspace-sel' : 'workspace-norm'}"
+                    :class "${workspace.state == 2 ? 'workspace-sel' : 'workspace-norm'} css-initial"
                     (label
                         :text "${workspace.id}"
                         :class "workspace-label"
@@ -48,9 +73,93 @@
     )
 )
 
+(defpoll gpu_busy :interval "1s" :initial "0" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
+(defpoll gpu_temp :interval "1s" :initial "0" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits")
+(defwidget cpus []
+    (box 
+        :space-evenly false
+        (label 
+            :class "icon" 
+            :text ""
+        )
+        (box   
+            :orientation "v" 
+            :space-evenly false 
+            :width 60 
+            :valign "center" 
+            :halign "start"
+            (label 
+                :class "val" 
+                :xalign "0"  
+                :text "CPU: ${round(EWW_CPU.avg,0)} %" 
+                :wrap true
+            )
+            (label 
+                :class "val" 
+                :xalign "0" 
+                :text "GPU: ${round(gpu_busy,0)} %" 
+                :wrap true
+            )
+        )
+    )
+)
+
+(defwidget temps []
+    (box 
+        :space-evenly false
+        (label 
+            :class "icon" 
+            :text ""
+        )
+        (box   
+            :orientation "v"
+            :space-evenly false
+            :valign "center"
+            :halign "start"
+            (label 
+                :class "val"
+                :text "CPU: ${round(EWW_TEMPS.ACPITZ_TEMP1,1)} °C"
+                :wrap true
+            )
+            (label 
+                :class "val"
+                :text "GPU: ${round(gpu_temp,1)} °C"
+                :wrap true
+            )
+      )
+    )
+)
+
+(defwidget datatimes []
+    (box
+        :class "datatime box"
+        (label
+            :class "datatime value"
+            :text "${formattime(EWW_TIME, '%H')}"
+        )
+        (label
+            :class "datatime icon"
+            :text "󰇙"
+        )
+        (label
+            :class "datatime value"
+            :text "${formattime(EWW_TIME, '%M')}"
+        )
+        (label
+            :class "datatime icon" 
+            :text "󰇙"
+        )
+        (label
+            :class "datatime value"
+            :text "${formattime(EWW_TIME, '%S')}"
+        )
+    )
+)
+
 (defwidget systrays []
     (systray
       :class "systray"
       :packdirection "right"
     )
 )
+

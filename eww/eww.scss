@@ -1,15 +1,23 @@
 * {
   // 取消所有样式
-  all: unset;
+  // all: unset;
 }
 
 
 /** General **/
+.css-initial {
+  all: initial;
+}
+
+.bar {
+  all: initial;
+}
 
 
-
+// 系统托盘
 .systray {
   background-color: rgba(119, 153, 170, 0.7529);
+  border-radius: 12;
 }
 
 
@@ -33,4 +41,32 @@
   margin-left: 11px;
   margin-right: 11px;
   font-size: 160%;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #ec407a;
+}
+
+.val {
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.datatime {
+  .box {
+    margin-right: 10px;
+  }
+  .value {
+    font-size: 23px;
+    color: #bfc9db;
+    font-weight: bold;
+    margin: 0px 5px 0px 0px;
+  }
+  .icon {
+    font-size: 17;
+    color: #bfc9db;
+    margin: 0px 4px 1px 4px;
+  }
 }
