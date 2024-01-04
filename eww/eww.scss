@@ -17,7 +17,7 @@
 // 系统托盘
 .systray {
   background-color: rgba(119, 153, 170, 0.7529);
-  border-radius: 12;
+  border-radius: 12px;
 }
 
 
@@ -62,11 +62,11 @@
     font-size: 23px;
     color: #bfc9db;
     font-weight: bold;
-    margin: 0px 5px 0px 0px;
+    margin: 0 5px 0 0;
   }
   .icon {
-    font-size: 17;
+    font-size: 17px;
     color: #bfc9db;
-    margin: 0px 4px 1px 4px;
+    margin: 0 4px 1px 4px;
   }
 }
