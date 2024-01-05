@@ -43,15 +43,28 @@
   font-size: 160%;
 }
 
-.icon {
-  margin-right: 10px;
-  font-size: 16px;
-  color: #ec407a;
+.cpu {
+  .icon {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #ec407a;
+  }
+  .value {
+    margin-right: 10px;
+    font-size: 12px;
+  }
 }
 
-.val {
-  margin-right: 10px;
-  font-size: 12px;
+.temp {
+  .icon {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #ec407a;
+  }
+  .value {
+    margin-right: 10px;
+    font-size: 12px;
+  }
 }
 
 .datatime {

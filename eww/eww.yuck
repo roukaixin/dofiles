@@ -76,10 +76,11 @@
 (defpoll gpu_busy :interval "1s" :initial "0" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
 (defpoll gpu_temp :interval "1s" :initial "0" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits")
 (defwidget cpus []
-    (box 
+    (box
+        :class "cpu"
         :space-evenly false
         (label 
-            :class "icon" 
+            :class "cpu icon" 
             :text ""
         )
         (box   
@@ -89,13 +90,13 @@
             :valign "center" 
             :halign "start"
             (label 
-                :class "val" 
+                :class "cpu value" 
                 :xalign "0"  
                 :text "CPU: ${round(EWW_CPU.avg,0)} %" 
                 :wrap true
             )
             (label 
-                :class "val" 
+                :class "cpu value" 
                 :xalign "0" 
                 :text "GPU: ${round(gpu_busy,0)} %" 
                 :wrap true
@@ -105,10 +106,11 @@
 )
 
 (defwidget temps []
-    (box 
+    (box
+        :class "temp"
         :space-evenly false
         (label 
-            :class "icon" 
+            :class "temp icon" 
             :text ""
         )
         (box   
@@ -117,12 +119,12 @@
             :valign "center"
             :halign "start"
             (label 
-                :class "val"
+                :class "temp val"
                 :text "CPU: ${round(EWW_TEMPS.ACPITZ_TEMP1,1)} °C"
                 :wrap true
             )
             (label 
-                :class "val"
+                :class "temp val"
                 :text "GPU: ${round(gpu_temp,1)} °C"
                 :wrap true
             )
