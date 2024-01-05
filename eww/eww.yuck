@@ -79,26 +79,26 @@
     (box
         :class "cpu"
         :space-evenly false
-        (label 
-            :class "cpu icon" 
+        (label
+            :class "cpu icon"
             :text ""
         )
-        (box   
-            :orientation "v" 
-            :space-evenly false 
-            :width 60 
-            :valign "center" 
+        (box
+            :orientation "v"
+            :space-evenly false
+            :width 60
+            :valign "center"
             :halign "start"
-            (label 
-                :class "cpu value" 
-                :xalign "0"  
-                :text "CPU: ${round(EWW_CPU.avg,0)} %" 
+            (label
+                :class "cpu value"
+                :xalign "0"
+                :text "CPU: ${round(EWW_CPU.avg,0)} %"
                 :wrap true
             )
-            (label 
-                :class "cpu value" 
-                :xalign "0" 
-                :text "GPU: ${round(gpu_busy,0)} %" 
+            (label
+                :class "cpu value"
+                :xalign "0"
+                :text "GPU: ${round(gpu_busy,0)} %"
                 :wrap true
             )
         )
@@ -109,26 +109,26 @@
     (box
         :class "temp"
         :space-evenly false
-        (label 
-            :class "temp icon" 
+        (label
+            :class "temp icon"
             :text ""
         )
-        (box   
+        (box
             :orientation "v"
             :space-evenly false
             :valign "center"
             :halign "start"
-            (label 
-                :class "temp val"
+            (label
+                :class "temp value"
                 :text "CPU: ${round(EWW_TEMPS.ACPITZ_TEMP1,1)} °C"
                 :wrap true
             )
-            (label 
-                :class "temp val"
+            (label
+                :class "temp value"
                 :text "GPU: ${round(gpu_temp,1)} °C"
                 :wrap true
             )
-      )
+        )
     )
 )
 
@@ -148,7 +148,7 @@
             :text "${formattime(EWW_TIME, '%M')}"
         )
         (label
-            :class "datatime icon" 
+            :class "datatime icon"
             :text "󰇙"
         )
         (label
