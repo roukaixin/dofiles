@@ -43,6 +43,7 @@
       :hexpand true
       :space-evenly false
       :halign "end"
+      (wifi)
       (cpus)
       (temps)
       (datatimes)
@@ -72,6 +73,42 @@
         )
     )
 )
+
+
+(defwidget wifi []
+    (eventbox
+        :class "wifi"
+        (box
+            :class "wifi box"
+            :orientation "v"
+            :space-evenly false
+            :valign "center"
+            (box
+                :class "wifi up"
+                (label
+                    :class "wifi up icon"
+                    :text "↑"
+                )
+                (label
+                    :class "wifi up value"
+                    :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+                )
+            )
+            (box
+                :class "wifi down"
+                (label
+                    :class "wifi down icon"
+                    :text "↓"
+                )
+                (label
+                    :class "wifi down value"
+                    :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+                )
+            )
+        )
+    )
+)
+
 
 (defpoll gpu_busy :interval "1s" :initial "0" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
 (defpoll gpu_temp :interval "1s" :initial "0" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits")
@@ -133,27 +170,30 @@
 )
 
 (defwidget datatimes []
-    (box
-        :class "datatime box"
-        (label
-            :class "datatime value"
-            :text "${formattime(EWW_TIME, '%H')}"
-        )
-        (label
-            :class "datatime icon"
-            :text "󰇙"
-        )
-        (label
-            :class "datatime value"
-            :text "${formattime(EWW_TIME, '%M')}"
-        )
-        (label
-            :class "datatime icon"
-            :text "󰇙"
-        )
-        (label
-            :class "datatime value"
-            :text "${formattime(EWW_TIME, '%S')}"
+    (eventbox
+        :class "datatime"
+        (box
+            :class "datatime box"
+            (label
+                :class "datatime value"
+                :text "${formattime(EWW_TIME, '%H')}"
+            )
+            (label
+                :class "datatime icon"
+                :text "󰇙"
+            )
+            (label
+                :class "datatime value"
+                :text "${formattime(EWW_TIME, '%M')}"
+            )
+            (label
+                :class "datatime icon"
+                :text "󰇙"
+            )
+            (label
+                :class "datatime value"
+                :text "${formattime(EWW_TIME, '%S')}"
+            )
         )
     )
 )

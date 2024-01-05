@@ -43,6 +43,21 @@
   font-size: 160%;
 }
 
+.wifi {
+  .box {
+    margin-right: 10px;
+  }
+  .up,
+  .down {
+    .icon {
+      margin-right: -13px;
+    }
+    .value {
+      font-size: 11px;
+    }
+  }
+}
+
 .cpu {
   .icon {
     margin-right: 10px;
@@ -51,7 +66,7 @@
   }
   .value {
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
@@ -63,7 +78,7 @@
   }
   .value {
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
@@ -71,15 +86,15 @@
   .box {
     margin-right: 10px;
   }
+  .icon {
+    font-size: 17px;
+    color: #bfc9db;
+    margin: 0 4px 1px 4px;
+  }
   .value {
     font-size: 23px;
     color: #bfc9db;
     font-weight: bold;
     margin: 0 5px 0 0;
-  }
-  .icon {
-    font-size: 17px;
-    color: #bfc9db;
-    margin: 0 4px 1px 4px;
   }
 }
