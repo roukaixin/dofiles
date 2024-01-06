@@ -39,15 +39,16 @@
 
 (defwidget right []
     (box
-      :width "100%"
-      :hexpand true
-      :space-evenly false
-      :halign "end"
-      (wifi)
-      (cpus)
-      (temps)
-      (datatimes)
-      (systrays)
+        :width "100%"
+        :hexpand true
+        :space-evenly false
+        :halign "end"
+        (wifi)
+        (cpus)
+        (temps)
+        (mems)
+        (datatimes)
+        (systrays)
     )
 )
 
@@ -79,30 +80,39 @@
     (eventbox
         :class "wifi"
         (box
-            :class "wifi box"
-            :orientation "v"
+            :vexpand false
+            :hexpand false
             :space-evenly false
             :valign "center"
-            (box
-                :class "wifi up"
-                (label
-                    :class "wifi up icon"
-                    :text "↑"
-                )
-                (label
-                    :class "wifi up value"
-                    :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-                )
+            (label
+                :text ""
             )
             (box
-                :class "wifi down"
-                (label
-                    :class "wifi down icon"
-                    :text "↓"
+                :class "wifi box"
+                :orientation "v"
+                :space-evenly false
+                :valign "center"
+                (box
+                    :class "wifi up"
+                    (label
+                        :class "wifi up icon"
+                        :text "↑"
+                    )
+                    (label
+                        :class "wifi up value"
+                        :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+                    )
                 )
-                (label
-                    :class "wifi down value"
-                    :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+                (box
+                    :class "wifi down"
+                    (label
+                        :class "wifi down icon"
+                        :text "↓"
+                    )
+                    (label
+                        :class "wifi down value"
+                        :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+                    )
                 )
             )
         )
