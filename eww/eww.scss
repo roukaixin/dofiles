@@ -43,18 +43,15 @@
   font-size: 160%;
 }
 
-.wifi {
+.net {
   .box {
     margin-right: 10px;
   }
-  .up,
-  .down {
-    .icon {
-      margin-right: -13px;
-    }
-    .value {
-      font-size: 11px;
-    }
+  .icon {
+    margin-right: 2px;
+  }
+  .value {
+    font-size: 11px;
   }
 }
 

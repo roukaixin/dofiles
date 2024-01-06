@@ -43,7 +43,7 @@
         :hexpand true
         :space-evenly false
         :halign "end"
-        (wifi)
+        (nets)
         (cpus)
         (temps)
         (mems)
@@ -76,43 +76,70 @@
 )
 
 
-(defwidget wifi []
+; (defwidget wifi []
+;     (eventbox
+;         :class "wifi"
+;         (box
+;             :space-evenly false
+;             (label
+;                 :text ""
+;             )
+;             (box
+;                 :space-evenly false
+;                 :orientation "v"
+;                 (label
+;                     :text "↑"
+;                 )
+;                 (label
+;                     :text "↓"
+;                 )
+;             )
+;             (box
+;                 :space-evenly false
+;                 :orientation "v"
+;                 (label
+;                     :class "wifi up value"
+;                     :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+;                 )
+;                 (label
+;                     :class "wifi down value"
+;                     :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
+;                 )
+;             )
+;         )
+;     )
+; )
+
+(defwidget nets []
     (eventbox
-        :class "wifi"
+        :class "net"
         (box
-            :vexpand false
-            :hexpand false
+            :class "net box"
             :space-evenly false
+            :orientation "h"
             :valign "center"
-            (label
-                :text ""
+            (box
+                :class "net icon"
+                :space-evenly false
+                :orientation "v"
+                :halign "end"
+                (label
+                    :text "↑"
+                )
+                (label
+                    :text "↓"
+                )
             )
             (box
-                :class "wifi box"
-                :orientation "v"
+                :class "net value"
                 :space-evenly false
-                :valign "center"
-                (box
-                    :class "wifi up"
-                    (label
-                        :class "wifi up icon"
-                        :text "↑"
-                    )
-                    (label
-                        :class "wifi up value"
-                        :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-                    )
+                :orientation "v"
+                :halign "center"
+                (label
+                    :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
                 )
-                (box
-                    :class "wifi down"
-                    (label
-                        :class "wifi down icon"
-                        :text "↓"
-                    )
-                    (label
-                        :class "wifi down value"
-                        :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-                    )
+                (label
+                    :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
                 )
             )
         )
