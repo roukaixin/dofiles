@@ -74,11 +74,28 @@
   .icon {
     margin-right: 10px;
     font-size: 16px;
-    color: #ec407a;
+    color: #f03805;
   }
   .value {
     margin-right: 10px;
     font-size: 11px;
+  }
+}
+
+.mem {
+  .box {
+    margin-right: 2px;
+  }
+  .icon {
+    color: #fbc02d;
+    margin-right: 10px;
+  }
+  .key {
+    font-size: 12px;
+    margin-right: 2px;
+  }
+  .value {
+    margin-right: 10px;
   }
 }
 

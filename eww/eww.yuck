@@ -169,6 +169,48 @@
     )
 )
 
+
+
+(defwidget mems []
+    (box
+        :class "mem"
+        :orientation "h"
+        :space-evenly false
+        (label
+            :class "mem icon"
+            :text ""
+        )
+        (box
+            :class "mem key"
+            :valign "center"
+            :orientation "v"
+            (label
+                :halign "end"
+                :text "mem: "
+            )
+            (label
+                :halign "end"
+                :text "disk: "
+            )
+        )
+        (box
+            :class "mem value"
+            :valign "center"
+            :orientation "v"
+            (label
+                :halign "start"
+                :text "${round(EWW_RAM.used_mem/1024/1024/1000,1)} / ${round(EWW_RAM.total_mem/1024/1024/1000,1)}G"
+            )
+            (label
+                :halign "start"
+                :text `${round((EWW_DISK['/'].used + "${EWW_DISK['/home'].used}")/1024/1024/1024,0)}G / ${round((EWW_DISK['/'].total + "${EWW_DISK['/home'].total}")/1024/1024/1024/1000,0)}T`
+            )
+        )
+    )
+)
+
+
+
 (defwidget datatimes []
     (eventbox
         :class "datatime"
