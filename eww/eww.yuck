@@ -233,6 +233,7 @@
 (defwidget datatimes []
     (eventbox
         :class "datatime"
+        :tooltip "${formattime(EWW_TIME, '%Y')} 年 ${formattime(EWW_TIME, '%m')} 月 ${formattime(EWW_TIME, '%d')} 日"
         (box
             :class "datatime box"
             (label
