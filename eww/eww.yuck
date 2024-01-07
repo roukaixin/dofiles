@@ -47,6 +47,7 @@
         (cpus)
         (temps)
         (mems)
+        (batterys)
         (datatimes)
         (systrays)
     )
@@ -76,39 +77,6 @@
 )
 
 
-; (defwidget wifi []
-;     (eventbox
-;         :class "wifi"
-;         (box
-;             :space-evenly false
-;             (label
-;                 :text ""
-;             )
-;             (box
-;                 :space-evenly false
-;                 :orientation "v"
-;                 (label
-;                     :text "↑"
-;                 )
-;                 (label
-;                     :text "↓"
-;                 )
-;             )
-;             (box
-;                 :space-evenly false
-;                 :orientation "v"
-;                 (label
-;                     :class "wifi up value"
-;                     :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-;                 )
-;                 (label
-;                     :class "wifi down value"
-;                     :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-;                 )
-;             )
-;         )
-;     )
-; )
 
 (defwidget nets []
     (eventbox
@@ -246,6 +214,20 @@
     )
 )
 
+
+(defwidget batterys []
+    (eventbox
+        :class "battery"
+        :tooltip "电量 ${EWW_BATTERY.BAT0.capacity} %"
+        :space-evenly false
+        (label
+            :class "battery icon"
+            :text "${EWW_BATTERY.BAT0.status == 'Discharging' 
+            ? EWW_BATTERY.BAT0.capacity >= 95 ? '󰁹' : EWW_BATTERY.BAT0.capacity >= 90 ? '󰂂' : EWW_BATTERY.BAT0.capacity >= 80 ? '󰂁' : EWW_BATTERY.BAT0.capacity >= 70 ? '󰂀' : EWW_BATTERY.BAT0.capacity >= 60 ? '󰁿' : EWW_BATTERY.BAT0.capacity >= 50 ? '󰁾' : EWW_BATTERY.BAT0.capacity >= 40 ? '󰁽' : EWW_BATTERY.BAT0.capacity >= 30 ? '󰁼' : EWW_BATTERY.BAT0.capacity >= 20 ? '󰁻' : EWW_BATTERY.BAT0.capacity >= 10 ? '󰁺' : '󰂃' 
+            : EWW_BATTERY.BAT0.capacity >= 95 ? '󰂅' : EWW_BATTERY.BAT0.capacity >= 90 ? '󰂋' : EWW_BATTERY.BAT0.capacity >= 80 ? '󰂊' : EWW_BATTERY.BAT0.capacity >= 70 ? '󰢞' : EWW_BATTERY.BAT0.capacity >= 60 ? '󰂉' : EWW_BATTERY.BAT0.capacity >= 50 ? '󰢝' : EWW_BATTERY.BAT0.capacity >= 40 ? '󰂈' : EWW_BATTERY.BAT0.capacity >= 30 ? '󰂇' : EWW_BATTERY.BAT0.capacity >= 20 ? '󰂆' : EWW_BATTERY.BAT0.capacity >= 10 ? '󰢜' : '󰢟'}"
+        )
+    )
+)
 
 
 (defwidget datatimes []

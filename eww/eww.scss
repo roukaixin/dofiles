@@ -38,8 +38,8 @@
 }
 
 .workspace-label {
-  margin-left: 11px;
-  margin-right: 11px;
+  margin-left: 10px;
+  margin-right: 10px;
   font-size: 160%;
 }
 
@@ -92,6 +92,15 @@
     margin-right: 2px;
   }
   .value {
+    margin-right: 10px;
+    font-size: 12px;
+  }
+}
+
+.battery {
+  .icon {
+    font-size: 26px;
+    color: #1d54bc;
     margin-right: 10px;
   }
 }
