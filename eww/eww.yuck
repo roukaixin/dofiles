@@ -234,6 +234,7 @@
     (eventbox
         :class "datatime"
         :tooltip "${formattime(EWW_TIME, '%Y')} 年 ${formattime(EWW_TIME, '%m')} 月 ${formattime(EWW_TIME, '%d')} 日"
+        :onrightclick "eww open --toggle calendar"
         (box
             :class "datatime box"
             (label
@@ -258,6 +259,19 @@
             )
         )
     )
+)
+
+
+(defwindow calendar
+    :monitor "0"
+    :geometry   (geometry
+                    :x "20px"
+                    :y "1%"
+                    :anchor "top right"
+                    :width "270px"
+                    :height "60px"
+                )
+    (calendar)
 )
 
 (defwidget systrays []
