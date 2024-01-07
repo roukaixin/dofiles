@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Run eww daemon if not running already
+if [[ ! `pidof eww` ]]; then
+    eww daemon
+    eww open-many bar
+    echo "Bar launched..."
+else
+    eww close bar calendar > /dev/null
+    killall -q eww
+    echo "Bar closed..."
+fi
