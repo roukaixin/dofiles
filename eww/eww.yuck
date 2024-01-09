@@ -116,7 +116,6 @@
 
 
 (defpoll gpu_busy :interval "1s" :initial "0" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
-(defpoll gpu_temp :interval "1s" :initial "0" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits")
 (defwidget cpus []
     (box
         :class "cpu"
@@ -147,6 +146,8 @@
     )
 )
 
+
+(defpoll gpu_temp :interval "1s" :initial "0" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits")
 (defwidget temps []
     (box
         :class "temp"
