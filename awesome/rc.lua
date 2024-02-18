@@ -72,7 +72,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- {{{ Tag layout
+-- {{{ Tag layout(tag 布局)
 -- Table of layouts to cover with awful.layout.inc, order matters.
 tag.connect_signal("request::default_layouts", function()
     awful.layout.append_default_layouts({
@@ -176,22 +176,21 @@ screen.connect_signal("request::desktop_decoration", function(s)
         }
     }
 
-    -- Create the wibox
+    -- Create the wibox(bar:状态栏)
     s.mywibox = awful.wibar {
         position = "top",
         screen   = s,
         widget   = {
             layout = wibox.layout.align.horizontal,
+            --[[ 状态栏左边小部件 ]]
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
-                mylauncher,
                 s.mytaglist,
                 s.mypromptbox,
             },
             s.mytasklist, -- Middle widget
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-                mykeyboardlayout,
                 wibox.widget.systray(),
                 mytextclock,
                 s.mylayoutbox,
@@ -202,7 +201,7 @@ end)
 
 -- }}}
 
--- {{{ Mouse bindings
+-- {{{ Mouse bindings(鼠标按键)
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewprev),
@@ -210,12 +209,12 @@ awful.mouse.append_global_mousebindings({
 })
 -- }}}
 
--- {{{ Key bindings
+-- {{{ Key bindings(键盘按键)
 
 -- General Awesome keys
 awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
-              {description="show help", group="awesome"}),
+              {description="show help()", group="awesome"}),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
