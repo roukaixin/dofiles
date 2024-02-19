@@ -494,6 +494,13 @@ client.connect_signal("request::default_keybindings", function()
                 c:raise()
             end ,
             {description = "(un)maximize horizontally", group = "client"}),
+        awful.key({ modkey }, "b",
+                function ()
+                    myscreen = awful.screen.focused()
+                    myscreen.mywibox.visible = not myscreen.mywibox.visible
+                end,
+                {description = "toggle statusbar(切换状态 bar)"}
+        ),
     })
 end)
 
@@ -541,7 +548,7 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule {
         id         = "titlebars",
         rule_any   = { type = { "normal", "dialog" } },
-        properties = { titlebars_enabled = true      }
+        properties = { titlebars_enabled = false      }
     }
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
