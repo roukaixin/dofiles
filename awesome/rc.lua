@@ -446,8 +446,8 @@ end)
 
 -- }}}
 
--- {{{ Rules
--- Rules to apply to new clients.
+-- {{{ Rules(规则)
+-- Rules to apply to new clients.(新窗口创建使用的规则)
 ruled.client.connect_signal("request::rules", function()
     -- All clients will match this rule.
     ruled.client.append_rule {
