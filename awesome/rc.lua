@@ -73,8 +73,8 @@ end
 
 -- }}}
 
--- configuration - edit to your liking
-wp_timeout  = 10
+-- 背景图片配置
+wp_timeout  = 30 * 60
 wp_path = os.getenv("HOME") .. "/wm/wallpaper/"
 wp_filter = function(s) return string.match(s,"%.png$") or string.match(s,"%.jpg$") end
 wp_files = scandir(wp_path, wp_filter)
@@ -178,7 +178,7 @@ mytextclock = wibox.widget.textclock()
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[2])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -458,11 +458,11 @@ client.connect_signal("request::default_keybindings", function()
                 c.fullscreen = not c.fullscreen
                 c:raise()
             end,
-            {description = "toggle fullscreen", group = "client"}),
-        awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-                {description = "close", group = "client"}),
-        awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
-                {description = "toggle floating", group = "client"}),
+            {description = "toggle fullscreen(切换全屏)", group = "client"}),
+        awful.key({ modkey  }, "c",      function (c) c:kill()                         end,
+                {description = "close(关闭)", group = "client"}),
+        awful.key({ modkey }, "v",  awful.client.floating.toggle                     ,
+                {description = "toggle floating(切换浮动)", group = "client"}),
         awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
                 {description = "move to master", group = "client"}),
         awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
