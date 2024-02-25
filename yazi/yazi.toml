@@ -1,0 +1,3 @@
+[manager]
+# 是否在文件/目录后面显示软链接地址。true:显示，false:不显示
+show_symlink = false
