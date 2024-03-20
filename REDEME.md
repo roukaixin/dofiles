@@ -23,11 +23,15 @@ make all && sudo make install
 
 # kitty
 
+````bash
+paru -S kitty
+````
+
 
 # waybar
 
 需要安装字体 `otf-font-awesome`
 
 ```bash
-sudo pacman -S otf-font-awesome
+sudo pacman -S otf-font-awesome awesome
 ```
