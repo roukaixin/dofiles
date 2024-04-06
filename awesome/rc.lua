@@ -1,6 +1,3 @@
--- awesome_mode: api-level=4:screen=on
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
@@ -105,23 +102,8 @@ end)
 -- initial start when rc.lua is first run
 wp_timer:start()
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
-}
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
+-- awful、wibox
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -131,19 +113,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Table of layouts to cover with awful.layout.inc, order matters.
 tag.connect_signal("request::default_layouts", function()
     awful.layout.append_default_layouts({
-        awful.layout.suit.floating,
-        awful.layout.suit.tile,
-        awful.layout.suit.tile.left,
-        awful.layout.suit.tile.bottom,
-        awful.layout.suit.tile.top,
-        awful.layout.suit.fair,
-        awful.layout.suit.fair.horizontal,
-        awful.layout.suit.spiral,
-        awful.layout.suit.spiral.dwindle,
-        awful.layout.suit.max,
-        awful.layout.suit.max.fullscreen,
-        awful.layout.suit.magnifier,
-        awful.layout.suit.corner.nw,
+        awful.layout.grid
     })
 end)
 -- }}}
@@ -177,8 +147,12 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = wibox.widget.textclock()
 
 screen.connect_signal("request::desktop_decoration", function(s)
-    -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[2])
+    -- tags
+    awful.tag(
+            { "󰎤", "󰎧", "󰎪", "󰎭", "󰎱", "󰎳", "󰎶", "󰎹", "󰎼" },
+            s,
+            awful.layout.layouts[1]
+    )
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -233,6 +207,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
     -- Create the wibox(bar:状态栏)
     s.mywibox = awful.wibar {
+        --[[ bar 位置 ]]
         position = "top",
         screen   = s,
         widget   = {
@@ -256,7 +231,7 @@ end)
 
 -- }}}
 
--- {{{ Mouse bindings(鼠标按键)
+-- {{{ Mouse bindings(鼠标绑定)
 awful.mouse.append_global_mousebindings({
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewprev),
@@ -264,7 +239,7 @@ awful.mouse.append_global_mousebindings({
 })
 -- }}}
 
--- {{{ Key bindings(键盘按键)
+-- {{{ Key bindings(键绑定)
 
 -- General Awesome keys
 awful.keyboard.append_global_keybindings({
