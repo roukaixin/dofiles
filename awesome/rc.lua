@@ -149,7 +149,7 @@ mytextclock = wibox.widget.textclock("%F %T", 1)
 screen.connect_signal("request::desktop_decoration", function(s)
     -- tags
     awful.tag(
-            { "󰎤", "󰎧", "󰎪", "󰎭", "󰎱", "󰎳", "󰎶", "󰎹", "󰎼" },
+            { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎱 ", "󰎳 ", "󰎶 ", "󰎹 ", "󰎼 " },
             s,
             awful.layout.layouts[1]
     )
@@ -174,12 +174,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         layout   = {
-            spacing = -12,
-            spacing_widget = {
-                color  = '#dddddd',
-                shape  = gears.shape.powerline,
-                widget = wibox.widget.separator,
-            },
+            spacing = 8,
             layout  = wibox.layout.fixed.horizontal
         },
         buttons = {
