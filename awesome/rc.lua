@@ -173,6 +173,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
+        layout   = {
+            spacing = -12
+        },
         buttons = {
             awful.button({ }, 1, function(t) t:view_only() end),
             awful.button({ modkey }, 1, function(t)
