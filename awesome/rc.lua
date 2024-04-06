@@ -144,7 +144,7 @@ end)
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(format="%F %T", refresh=1)
+mytextclock = wibox.widget.textclock("%F %T", 1)
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- tags
