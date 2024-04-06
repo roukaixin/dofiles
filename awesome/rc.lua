@@ -174,7 +174,13 @@ screen.connect_signal("request::desktop_decoration", function(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         layout   = {
-            spacing = -12
+            spacing = -12,
+            spacing_widget = {
+                color  = '#dddddd',
+                shape  = gears.shape.powerline,
+                widget = wibox.widget.separator,
+            },
+            layout  = wibox.layout.fixed.horizontal
         },
         buttons = {
             awful.button({ }, 1, function(t) t:view_only() end),
