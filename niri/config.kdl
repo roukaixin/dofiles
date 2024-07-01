@@ -1,3 +1,5 @@
+prefer-no-csd
+
 input {
     keyboard {
         xkb {
@@ -112,7 +114,7 @@ layout {
     // You can change how the focus ring looks.
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        // off
+        off
 
         // How many logical pixels the ring extends out from the windows.
         width 4
@@ -150,11 +152,11 @@ layout {
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        off
+        // off
 
-        width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        width 2
+        active-color "#42A5F5"
+        inactive-color "#444444"
 
         // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
         // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
@@ -174,12 +176,12 @@ layout {
     }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.6; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
     // 以逻辑像素为单位设置窗口周围的间隙
-    gaps 16
+    gaps 12
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
     // You can think of them as a kind of outer gaps. They are set in logical pixels.
@@ -206,11 +208,18 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
+spawn-at-startup "eww daemon && eww open bar"
+spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "udiskie"
+spawn-at-startup "fcitx5"
+spawn-at-startup "nm-applet"
 
 // You can override environment variables for processes spawned by niri.
 environment {
     // Set a variable like this:
     // QT_QPA_PLATFORM "wayland"
+    LANG "zh_CN.UTF-8"
+    LANGUAGE "zh_CN:en_US"
 
     // Remove a variable by using null as the value:
     // DISPLAY null
@@ -426,6 +435,55 @@ binds {
     // directly scanned out. It's therefore useful to check if direct scanout
     // is working.
     // Mod+Shift+Ctrl+T { toggle-debug-tint; }
+}
+
+
+window-rule {
+
+    geometry-corner-radius 6
+    clip-to-geometry true
+
+}
+
+animations {
+    // Uncomment to turn off all animations.
+    // You can also put "off" into each individual animation to disable it.
+    off
+
+    // Slow down all animations by this factor. Values below 1 speed them up instead.
+    // slowdown 3.0
+
+    // Individual animations.
+
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+
+    window-open {
+        duration-ms 150
+        curve "ease-out-expo"
+    }
+
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    window-movement {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+    }
 }
 
 // Settings for debugging. Not meant for normal use.
