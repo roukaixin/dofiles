@@ -7,7 +7,7 @@
                         :anchor "top center"
                 )
     :stacking "fg"
-    :focusable false
+    :focusable true
     :exclusive true
     :namespace true
     (box
@@ -277,8 +277,10 @@
 
 (defwidget systrays []
     (systray
-      :class "systray"
-      :packdirection "right"
+        :spacing "2px"
+        :orientation "h"
+        :space-evenly true
+        :prepend-new true
     )
 )
 
