@@ -208,10 +208,12 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
-spawn-at-startup "eww daemon && eww open bar"
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "xwayland-satellite" ":0"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "sh" "-c" "~/.config/niri/swww_randomize.sh ~/wm/wallpaper"
 spawn-at-startup "udiskie"
-spawn-at-startup "fcitx5"
+spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "nm-applet"
 
 // You can override environment variables for processes spawned by niri.
