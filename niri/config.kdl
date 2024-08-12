@@ -201,7 +201,7 @@ layout {
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
     // - "always", the focused column will always be centered.
-    center-focused-column "always"
+    center-focused-column "never"
 }
 
 // Add lines like this to spawn processes at startup.
@@ -222,6 +222,8 @@ environment {
     // QT_QPA_PLATFORM "wayland"
     LANG "zh_CN.UTF-8"
     LANGUAGE "zh_CN:en_US"
+    GBM_BACKEND "nvidia-drm"
+    __GLX_VENDOR_LIBRARY_NAME "nvidia"
 
     // Remove a variable by using null as the value:
     // DISPLAY null
@@ -439,7 +441,7 @@ binds {
     // Mod+Shift+Ctrl+T { toggle-debug-tint; }
 }
 
-
+// 窗口规则
 window-rule {
 
     geometry-corner-radius 6
@@ -447,10 +449,11 @@ window-rule {
 
 }
 
+// 动画
 animations {
     // Uncomment to turn off all animations.
     // You can also put "off" into each individual animation to disable it.
-    off
+    // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
     // slowdown 3.0
