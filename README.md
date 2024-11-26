@@ -35,3 +35,14 @@ paru -S kitty
 ```bash
 sudo pacman -S otf-font-awesome awesome
 ```
+
+
+
+# 配置
+
+```shell
+ln -s ~/wm/dofiles/user-dirs.dirs user-dirs.dirs
+ln -s ~/wm/dofiles/user-dirs.locale user-dirs.locale
+ln -s ~/wm/dofiles/qq-fix-mac.conf qq-fix-mac.conf
+ln -s ~/wm/dofiles/mimeapps.list mimeapps.list
+```
