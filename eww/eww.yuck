@@ -1,284 +1,104 @@
-(defwindow bar
-    :class "bar"
-    :monitor 0
-    :geometry (geometry :x "0"
-                        :y "0"
-                        :width "100%"
-                        :height "3%"
-                        :anchor "top center"
-                )
-    :stacking "fg"
-    :focusable false
-    :exclusive true
-    :namespace true
-    (box
-        (left)
-        (center)
-        (right)
+(defwidget bar []
+    (centerbox  :orientation "h"
+                (workspaces)
+                (sidestuff)
+                (systrays)
     )
 )
 
-(defwidget left []
-    (box
-      :width "100%"
-      :hexpand true
-      :space-evenly false
-      :halign "start"
-      (workspaces)
-    )
-)
-
-; 工作区
-(deflisten workspaces :initial "[]" "bash ./scripts/get-workspaces")
 (defwidget workspaces []
-    (eventbox
-        (box
-            :space-evenly true
-            (for workspace in workspaces
-                (button
-                    :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    :class "${workspace.state == 2 ? 'workspace-sel' : 'workspace-norm'} css-initial"
-                    (label
-                        :text "${workspace.id}"
-                        :class "workspace-label"
-                    )
-                )
-            )
-        )
-    )
-)
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "niri msg action focus-workspace 1" 1)
+    (button :onclick "niri msg action focus-workspace 2" 2)
+    (button :onclick "niri msg action focus-workspace 3" 3 )
+    (button :onclick "niri msg action focus-workspace 4" 4)
+    (button :onclick "niri msg action focus-workspace 5" 5)
+    (button :onclick "niri msg action focus-workspace 6" 6)
+    (button :onclick "niri msg action focus-workspace 7" 7)
+    (button :onclick "niri msg action focus-workspace 8" 8)
+    (button :onclick "niri msg action focus-workspace 9" 9)))
 
-(defwidget center []
-    (box
-      :width "100%"
-      :hexpand true
-      :space-evenly false
-      :halign "start"
-    )
-)
-
-(defwidget right []
-    (box
-        :valign "fill"
-        :halign "center"
-        :hexpand true
-        :orientation "horizontal"
-        :space-evenly false
-        (nets)
-        (cpus)
-        (temps)
-        (mems)
-        (batterys)
-        (datatimes)
-        (systrays)
-    )
-)
-
-
-
-(defwidget nets []
-    (eventbox
-        :valign "fill"
-        :halign "center"
-        :hexpand true
-        (box
-            :space-evenly false
-            :orientation "h"
-            :valign "center"
-            (box
-                :class "net icon"
-                :space-evenly false
-                :orientation "v"
-                :halign "end"
-                (label
-                    :text "↑"
-                )
-                (label
-                    :text "↓"
-                )
-            )
-            (box
-                :class "net value"
-                :space-evenly false
-                :orientation "v"
-                :halign "center"
-                (label
-                    :text `${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_UP /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_UP /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_UP / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-                )
-                (label
-                    :text `${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2) > 1024 ? "${round(EWW_NET.wlo1.NET_DOWN /2 / 1048576, 2)}" : "${round(EWW_NET.wlo1.NET_DOWN /2 / 1024, 2)}"} ${round(EWW_NET.wlo1.NET_DOWN / 2 / 1024,1) > 1024 ? "M/s" : "K/s"}`
-                )
-            )
-        )
-    )
-)
-
-
-(defpoll gpu_busy :interval "1s" :initial "0" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
-(defwidget cpus []
-    (box
-        :class "cpu"
-        :space-evenly false
-        (label
-            :class "cpu icon"
-            :text ""
-        )
-        (box
-            :orientation "v"
-            :space-evenly false
-            :width 60
-            :valign "center"
-            :halign "start"
-            (label
-                :class "cpu value"
-                :xalign "0"
-                :text "CPU: ${round(EWW_CPU.avg,0)} %"
-                :wrap true
-            )
-            (label
-                :class "cpu value"
-                :xalign "0"
-                :text "GPU: ${round(gpu_busy,0)} %"
-                :wrap true
-            )
-        )
-    )
-)
-
-
-(defpoll gpu_temp :interval "1s" :initial "0" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits")
-(defwidget temps []
-    (box
-        :class "temp"
-        :space-evenly false
-        (label
-            :class "temp icon"
-            :text ""
-        )
-        (box
-            :orientation "v"
-            :space-evenly false
-            :valign "center"
-            :halign "start"
-            (label
-                :class "temp value"
-                :text "CPU: ${round(EWW_TEMPS.ACPITZ_TEMP1,1)} °C"
-                :wrap true
-            )
-            (label
-                :class "temp value"
-                :text "GPU: ${round(gpu_temp,1)} °C"
-                :wrap true
-            )
-        )
-    )
-)
-
-
-
-(defwidget mems []
-    (box
-        :class "mem"
-        :orientation "h"
-        :space-evenly false
-        (label
-            :class "mem icon"
-            :text ""
-        )
-        (box
-            :class "mem key"
-            :valign "center"
-            :orientation "v"
-            (label
-                :halign "end"
-                :text "mem: "
-            )
-            (label
-                :halign "end"
-                :text "disk: "
-            )
-        )
-        (box
-            :class "mem value"
-            :valign "center"
-            :orientation "v"
-            (label
-                :halign "start"
-                :text "${round(EWW_RAM.used_mem/1024/1024/1000,1)} / ${round(EWW_RAM.total_mem/1024/1024/1000,1)}G"
-            )
-            (label
-                :halign "start"
-                :text `${round((EWW_DISK['/'].used + "${EWW_DISK['/home'].used}")/1024/1024/1024,0)}G / ${round((EWW_DISK['/'].total + "${EWW_DISK['/home'].total}")/1024/1024/1024/1000,0)}T`
-            )
-        )
-    )
-)
-
-
-(defwidget batterys []
-    (eventbox
-        :class "battery"
-        :tooltip "电量 ${EWW_BATTERY.BAT0.capacity} %"
-        :space-evenly false
-        (label
-            :class "battery icon"
-            :text "${EWW_BATTERY.BAT0.status == 'Discharging'
-            ? EWW_BATTERY.BAT0.capacity >= 95 ? '󰁹' : EWW_BATTERY.BAT0.capacity >= 90 ? '󰂂' : EWW_BATTERY.BAT0.capacity >= 80 ? '󰂁' : EWW_BATTERY.BAT0.capacity >= 70 ? '󰂀' : EWW_BATTERY.BAT0.capacity >= 60 ? '󰁿' : EWW_BATTERY.BAT0.capacity >= 50 ? '󰁾' : EWW_BATTERY.BAT0.capacity >= 40 ? '󰁽' : EWW_BATTERY.BAT0.capacity >= 30 ? '󰁼' : EWW_BATTERY.BAT0.capacity >= 20 ? '󰁻' : EWW_BATTERY.BAT0.capacity >= 10 ? '󰁺' : '󰂃'
-            : EWW_BATTERY.BAT0.capacity >= 95 ? '󰂅' : EWW_BATTERY.BAT0.capacity >= 90 ? '󰂋' : EWW_BATTERY.BAT0.capacity >= 80 ? '󰂊' : EWW_BATTERY.BAT0.capacity >= 70 ? '󰢞' : EWW_BATTERY.BAT0.capacity >= 60 ? '󰂉' : EWW_BATTERY.BAT0.capacity >= 50 ? '󰢝' : EWW_BATTERY.BAT0.capacity >= 40 ? '󰂈' : EWW_BATTERY.BAT0.capacity >= 30 ? '󰂇' : EWW_BATTERY.BAT0.capacity >= 20 ? '󰂆' : EWW_BATTERY.BAT0.capacity >= 10 ? '󰢜' : '󰢟'}"
-        )
-    )
-)
-
-
-(defwidget datatimes []
-    (eventbox
-        :class "datatime"
-        :tooltip "${formattime(EWW_TIME, '%Y')} 年 ${formattime(EWW_TIME, '%m')} 月 ${formattime(EWW_TIME, '%d')} 日"
-        :onrightclick "eww open --toggle calendar"
-        (box
-            :class "datatime box"
-            (label
-                :class "datatime value"
-                :text "${formattime(EWW_TIME, '%H')}"
-            )
-            (label
-                :class "datatime icon"
-                :text "󰇙"
-            )
-            (label
-                :class "datatime value"
-                :text "${formattime(EWW_TIME, '%M')}"
-            )
-            (label
-                :class "datatime icon"
-                :text "󰇙"
-            )
-            (label
-                :class "datatime value"
-                :text "${formattime(EWW_TIME, '%S')}"
-            )
-        )
-    )
-)
-
-
-(defwindow calendar
-    :monitor "0"
-    :geometry   (geometry
-                    :x "20px"
-                    :y "1%"
-                    :anchor "top right"
-                    :width "270px"
-                    :height "60px"
-                )
-    (calendar)
-)
 
 (defwidget systrays []
-    (systray
-        :spacing "30px"
-        :orientation "h"
-        :space-evenly true
-        :prepend-new true
+    (box    :class "wrap"
+        (systray    :spacing 6
+                    :space-evenly true
+                    :class "sysmenu"
+        )
     )
 )
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "🔊"
+            :value volume
+            :onchange "amixer -D pulse sset Master {}%")
+    (metric :label ""
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")
+    (metric :label "💾"
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange "")
+    time))
+
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "🎵${music}" : ""}))
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d, %Y'")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defwindow bar
+           :monitor 0
+           :geometry (geometry :x "0.25%"
+                               :y "0.25%"
+                               :width "99.5%"
+                               :height "10px"
+                               :anchor "top center")
+           :stacking "fg"
+           :exclusive true
+           :focusable false
+           :namespace "bar"
+  (bar))

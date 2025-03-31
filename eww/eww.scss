@@ -1,125 +1,66 @@
 * {
-  // 取消所有样式
-  all: unset;
+  all: unset; // Unsets everything so you can style everything from scratch
 }
 
-
-/** General **/
-.css-initial {
-  all: initial;
-}
-
+// Global Styles
 .bar {
-  padding: 5px 5px 0 5px;
+  background-color: #3a3a3a;
+  color: #b0b4bc;
+  padding: 10px;
 }
 
+// Styles on classes (see eww.yuck for more information)
 
-// 系统托盘
-.systray {
-  background-color: rgba(119, 153, 170, 0.7529);
-  border-radius: 12px;
+.sidestuff slider {
+  all: unset;
+  color: #ffd5cd;
 }
 
-
-// 工作区
-.workspace-norm {
-  color: rgb(187, 187, 187, 1);
-  background-color: rgba(51, 51, 51, 0.8);
-  border-style: ridge;
-  border-color: rgba(68, 68, 68, 0.9);
-  border-width: 1px;
-}
-.workspace-sel {
-  color: rgb(255, 255, 255, 1);
-  background-color: rgba(55, 71, 79, 0.8);
-  border-style: groove;
-  border-color: rgba(66, 165, 245, 0.9);
-  border-width: 1px;
+.metric scale trough highlight {
+  all: unset;
+  background-color: #D35D6E;
+  color: #000000;
+  border-radius: 10px;
 }
 
-.workspace-label {
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
   margin-left: 10px;
-  margin-right: 10px;
-  font-size: 160%;
+  margin-right: 20px;
 }
 
-.net {
-  .box {
-    margin-right: 10px;
-  }
-  .icon {
-    margin-right: 2px;
-  }
-  .value {
-    font-size: 11px;
-  }
+.label-ram {
+  font-size: large;
 }
 
-.cpu {
-  .icon {
-    margin-right: 10px;
-    font-size: 16px;
-    color: #ec407a;
-  }
-  .value {
-    margin-right: 10px;
-    font-size: 11px;
-  }
+.workspaces button:hover {
+  color: #D35D6E;
 }
 
-.temp {
-  .icon {
-    margin-right: 10px;
-    font-size: 16px;
-    color: #f03805;
-  }
-  .value {
-    margin-right: 10px;
-    font-size: 11px;
-  }
+.wrap {
+  background-color: #fff;
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 2px solid #2e2e2e;
 }
 
-.mem {
-  .box {
-    margin-right: 2px;
-  }
-  .icon {
-    color: #fbc02d;
-    margin-right: 10px;
-  }
-  .key {
-    font-size: 12px;
-    margin-right: 2px;
-  }
-  .value {
-    margin-right: 10px;
-    font-size: 12px;
-  }
-}
 
-.battery {
-  .icon {
-    font-size: 26px;
-    color: #1d54bc;
-    margin-right: 10px;
-  }
-}
-
-.battery:hover {
-  
-}
-
-.datatime {
-  .box {
-    margin-right: 10px;
-  }
-  .icon {
-    font-size: 20px;
-    color: #bfc9db;
-  }
-  .value {
-    font-size: 25px;
-    color: #bfc9db;
-    font-weight: bold;
+.sysmenu {
+  menu {
+    padding: 5px;
+    background-color: #faf4ed;
+    color: #575279;
+    border-radius: 8px;
+    menuitem {
+      border-radius: 5px;
+      padding: 8px 12px;
+    }
+    menuitem:hover {
+      background-color: #f186a4;
+    }
   }
 }
