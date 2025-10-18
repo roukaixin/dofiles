@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IntelliJ IDEA 2025.2.3
+GenericName=IDE
+Comment=Integrated Development Environment
+Exec=idea %f
+Icon=idea
+Terminal=false
+StartupNotify=true
+Categories=Development;IDE;
+StartupWMClass=jetbrains-idea
+MimeType=text/x-java;text/x-python;text/x-kotlin;text/x-scala;
+Keywords=jetbrains;idea;java;ide;editor;
