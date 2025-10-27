@@ -18,6 +18,8 @@ input {
         // - "global" - layout change is global for all windows.
         // - "window" - layout is tracked for each window individually.
         // track-layout "global"
+
+        numlock
     }
 
     // Next sections include libinput settings.
@@ -102,21 +104,17 @@ input {
 
 layout {
 
-    // 以逻辑像素为单位设置窗口周围的间隙
+    // 间隙
     gaps 12
 
-    // When to center a column when changing focus, options are:
-    // - "never", default behavior, focusing an off-screen column will keep at the left
-    //   or right edge of the screen.
-    // - "on-overflow", focusing a column will center it if it doesn't fit
-    //   together with the previously focused column.
-    // - "always", the focused column will always be centered.
     center-focused-column "never"
-
+    // 只有一个列居中
     always-center-single-column
 
     // empty-workspace-above-first
 
+    // eg：normal、tabbed
+    default-column-display "normal"
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
@@ -130,11 +128,9 @@ layout {
         // fixed 1920
     }
 
-    // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
-    // If you leave the brackets empty, the windows themselves will decide their initial width.
-    // default-column-width {}
-
+    default-column-width {
+        proportion 0.66667;
+    }
 
     // By default focus ring and border are rendered as a solid background rectangle
     // behind windows. That is, they will show up through semitransparent windows.
@@ -146,39 +142,7 @@ layout {
 
     // You can change how the focus ring looks.
     focus-ring {
-        // Uncomment this line to disable the focus ring.
         off
-
-        // How many logical pixels the ring extends out from the windows.
-        width 4
-
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
-
-        // Color of the ring on inactive monitors.
-        inactive-color "#505050"
-
-        // Additionally, there's a legacy RGBA syntax:
-        // active-color 127 200 255 255
-
-        // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        // The angle is the same as in linear-gradient, and is optional,
-        // defaulting to 180 (top-to-bottom gradient).
-        // You can use any CSS linear-gradient tool on the web to set these up.
-        //
-        // active-gradient from="#80c8ff" to="#bbddff" angle=45
-
-        // You can also color the gradient relative to the entire view
-        // of the workspace, rather than relative to just the window itself.
-        // To do that, set relative-to="workspace-view".
-        //
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
     // You can also add a border. It's similar to the focus ring, but always visible.
@@ -189,10 +153,26 @@ layout {
 
         width 2
         active-color "#42A5F5"
-        inactive-color "#444444"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+    }
 
-        // active-gradient from="#ffbb66" to="#ffc880" angle=45 relative-to="workspace-view"
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    shadow {
+        // on
+    }
+
+    tab-indicator {
+        gap 3
+        width 3
+        length total-proportion=0.7
+        gaps-between-tabs 0
+        corner-radius 2
+    }
+
+    insert-hint {
+        // off
+        color "#ffc87f80"
+        gradient from="#ffbb6680" to="#ffc88080" angle=45 relative-to="workspace-view"
     }
 
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
@@ -212,24 +192,36 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // spawn-at-startup "alacritty" "-e" "fish"
-spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-spawn-at-startup "xwayland-satellite"
-spawn-at-startup "udiskie"
-spawn-at-startup "fcitx5" "-r" "-d"
+//spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+//spawn-at-startup "udiskie"
+spawn-at-startup "fcitx5"
 spawn-at-startup "nm-applet"
-//spawn-at-startup "waybar"
+spawn-at-startup "waybar"
+spawn-at-startup "flameshot"
+spawn-at-startup "foot" "--server"
+
+
+prefer-no-csd
+
+// You can change the path where screenshots are saved.
+// A ~ at the front will be expanded to the home directory.
+// The path is formatted with strftime(3) to give you the screenshot date and time.
+// screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// You can also set this to null to disable saving screenshots to disk.
+screenshot-path null
 
 // 环境变量
 environment {
     // Set a variable like this:
-    // QT_QPA_PLATFORM "wayland"
+    QT_QPA_PLATFORM "wayland"
+
+    // electron wayland su
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
 
     // 系统语言配置
     LANG "zh_CN.UTF-8"
     LANGUAGE "zh_CN:en_US"
-    // n 卡配置
-    GBM_BACKEND "nvidia-drm"
-    __GLX_VENDOR_LIBRARY_NAME "nvidia"
 
     // fcitx5 配置
     QT_IM_MODULE "fcitx"
@@ -238,7 +230,7 @@ environment {
     GLFW_IM_MODULE "ibus"
 
     // Remove a variable by using null as the value:
-    DISPLAY ":0"
+    // DISPLAY null
 }
 
 // 光标
@@ -249,21 +241,15 @@ cursor {
     // xcursor-size 24
     // hide-when-typing
     // Hide the cursor after one second of inactivity.
-    hide-after-inactive-ms 1000
+    // hide-after-inactive-ms 1000
 }
 
-// Uncomment this line to ask the clients to omit their client-side decorations if possible.
-// If the client will specifically ask for CSD, the request will be honored.
-// Additionally, clients will be informed that they are tiled, removing some rounded corners.
-prefer-no-csd
-
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
-// screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
-
-// You can also set this to null to disable saving screenshots to disk.
-screenshot-path null
+overview {
+    zoom 0.6
+    workspace-shadow {
+        off
+    }
+}
 
 // Settings for the "Important Hotkeys" overlay.
 hotkey-overlay {
@@ -287,35 +273,55 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "foot"; }                                                            /* super enter        |   打开终端 */
-    Mod+P { spawn "wmenu-run"; }                                                            /* super p            |   打开启动器 */
-    Mod+N { spawn "swaylock"; }                                                             /* super n            | 锁定屏幕 */
+    Mod+Return { spawn "footclient"; }
+    Mod+P { spawn "fuzzel"; }
+    Mod+N { spawn "swaylock"; }
+    // 切换 overview
+    Mod+Tab { toggle-overview; }
 
     // You can also use a shell:
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
-    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ && wp-vol"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1- && wp-vol"; }
 
-    Mod+C { close-window; }                                                                 /* super c            |  关闭窗口 */
+    // 切换浮动
+    Mod+V { toggle-window-floating; }
 
+    // 列（column）和tab之间切换
+    Mod+W { toggle-column-tabbed-display; }
+    // 关闭窗口
+    Mod+C { close-window; }
+
+    // 聚焦到左边列（column）
     Mod+Left  { focus-column-left; }
+    // 聚焦到右边列（column）
+    Mod+Right { focus-column-right; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
-    Mod+Right { focus-column-right; }
+
+    // 聚焦到左边列（column）
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
+    // 聚焦到右边列（column）
     Mod+L     { focus-column-right; }
 
+
+    // 移动列（column）到左边
     Mod+Ctrl+Left  { move-column-left; }
+    // 移动列（column）到右边
+    Mod+Ctrl+Right { move-column-right; }
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
-    Mod+Ctrl+Right { move-column-right; }
+
+    // 移动列（column）到左边
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+J     { move-window-down; }
     Mod+Ctrl+K     { move-window-up; }
+    // 移动列（column）到右边
     Mod+Ctrl+L     { move-column-right; }
 
     // Alternative commands that move across workspaces when reaching
@@ -358,21 +364,28 @@ binds {
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
+    // 聚焦到下一个工作区
     Mod+U              { focus-workspace-down; }
+    // 聚焦到下一个工具区
     Mod+I              { focus-workspace-up; }
+
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    // 移动列到下一个工作区
     Mod+Ctrl+U         { move-column-to-workspace-down; }
+    // 移动列到上一个工作区
     Mod+Ctrl+I         { move-column-to-workspace-up; }
 
     // Alternatively, there are commands to move just a single window:
-    // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
-    // ...
+    // 移动窗口到下一个工作区
+    Mod+Shift+U { move-window-to-workspace-down; }
+    // 移动窗口到上一个工作区
+    Mod+Shift+I { move-window-to-workspace-up; }
 
-    Mod+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+U         { move-workspace-down; }
-    Mod+Shift+I         { move-workspace-up; }
+    Mod+Alt+Page_Down { move-workspace-down; }
+    Mod+Alt+Page_Up   { move-workspace-up; }
+    Mod+Alt+U         { move-workspace-down; }
+    Mod+Alt+I         { move-workspace-up; }
 
     // You can refer to workspaces by index. However, keep in mind that
     // niri is a dynamic workspace system, so these commands are kind of
@@ -400,9 +413,15 @@ binds {
     Mod+Ctrl+7 { move-column-to-workspace 7; }
     Mod+Ctrl+8 { move-column-to-workspace 8; }
     Mod+Ctrl+9 { move-column-to-workspace 9; }
-
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Ctrl+1 { move-window-to-workspace 1; }
+    Mod+Shift+1 { move-window-to-workspace 1; }
+    Mod+Shift+2 { move-window-to-workspace 2; }
+    Mod+Shift+3 { move-window-to-workspace 3; }
+    Mod+Shift+4 { move-window-to-workspace 4; }
+    Mod+Shift+5 { move-window-to-workspace 5; }
+    Mod+Shift+6 { move-window-to-workspace 6; }
+    Mod+Shift+7 { move-window-to-workspace 7; }
+    Mod+Shift+8 { move-window-to-workspace 8; }
+    Mod+Shift+9 { move-window-to-workspace 9; }
 
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
@@ -412,8 +431,11 @@ binds {
     // Mod+BracketRight { consume-or-expel-window-right; }
 
     Mod+R { switch-preset-column-width; }
+    // 最大化列
     Mod+F { maximize-column; }
+    // 全屏窗口
     Mod+Shift+F { fullscreen-window; }
+    // 居中列
     Mod+T { center-column; }
 
     // Finer width adjustments.
@@ -424,11 +446,15 @@ binds {
     // * adjust width as a percentage of screen width: "-10%" or "+10%"
     // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
+    // 列（column）减少 10%
     Mod+Minus { set-column-width "-10%"; }
+    // 列（column）增加 10%
     Mod+Equal { set-column-width "+10%"; }
 
     // Finer height adjustments when in column with other windows.
+    // 窗口高度减少 10%
     Mod+Shift+Minus { set-window-height "-10%"; }
+    // 窗口高度增加 10%
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Actions to switch layouts.
@@ -439,15 +465,15 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
+    Print { screenshot show-pointer=false; }
+    Ctrl+Print { screenshot-screen show-pointer=false; }
     Alt+Print { screenshot-window; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     // If you want to skip the confirmation dialog, set the flag like so:
-    // Mod+Shift+E { quit skip-confirmation=true; }
+    // 退出并跳过确认
     Mod+Shift+Q { quit skip-confirmation=true; }
-
+    // 关闭屏幕
     Mod+Shift+P { power-off-monitors; }
 
     // This debug bind will tint all surfaces green, unless they are being
@@ -458,10 +484,15 @@ binds {
 
 // 窗口规则
 window-rule {
-
-    geometry-corner-radius 6
+    geometry-corner-radius 2
     clip-to-geometry true
+    opacity 0.97
+}
 
+window-rule {
+    match title="图片查看器"
+    default-column-width { fixed 971; }
+    default-window-height { fixed 860; }
 }
 
 // layer 规则
@@ -473,6 +504,13 @@ layer-rule {
     opacity 0.5
     block-out-from "screencast"
     // block-out-from "screen-capture"
+}
+
+layer-rule {
+    match namespace="eww-bar"
+    match at-startup=true
+    opacity 0.85
+    block-out-from "screencast"
 }
 
 // 动画
@@ -519,6 +557,17 @@ animations {
     screenshot-ui-open {
         duration-ms 200
         curve "ease-out-quad"
+    }
+
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+    }
+
+}
+
+gestures {
+    hot-corners {
+        off
     }
 }
 

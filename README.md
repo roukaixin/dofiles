@@ -46,3 +46,5 @@ ln -s ~/wm/dofiles/user-dirs.locale user-dirs.locale
 ln -s ~/wm/dofiles/qq-fix-mac.conf qq-fix-mac.conf
 ln -s ~/wm/dofiles/mimeapps.list mimeapps.list
 ```
+
+gtk4-layer-shell webkitgtk-6.0

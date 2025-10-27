@@ -1,5 +1,5 @@
 .idea
 
-picom/log
+config/picom/log
 
-snipaste/history
+config/snipaste/history
