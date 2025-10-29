@@ -194,11 +194,15 @@ layout {
 // spawn-at-startup "alacritty" "-e" "fish"
 //spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 //spawn-at-startup "udiskie"
-spawn-at-startup "fcitx5"
-spawn-at-startup "nm-applet"
 spawn-at-startup "waybar"
 spawn-at-startup "flameshot"
-spawn-at-startup "foot" "--server"
+spawn-at-startup "fcitx5"
+spawn-at-startup "nm-applet"
+spawn-at-startup "blueman-applet"
+spawn-at-startup "swww-daemon"
+spawn-sh-at-startup "sh ~/.config/niri/swww_randomize.sh ~/job/wallpaper"
+spawn-at-startup "swww-daemon" "-n" "overview"
+spawn-sh-at-startup "sh ~/.config/niri/swww_overview.sh ~/job/wallpaper"
 
 
 prefer-no-csd
@@ -273,7 +277,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "footclient"; }
+    Mod+Return { spawn "foot"; }
     Mod+P { spawn "fuzzel"; }
     Mod+N { spawn "swaylock"; }
     // 切换 overview
@@ -504,6 +508,11 @@ layer-rule {
     opacity 0.5
     block-out-from "screencast"
     // block-out-from "screen-capture"
+}
+
+layer-rule {
+    match namespace="swww-daemonoverview"
+    place-within-backdrop true
 }
 
 layer-rule {
