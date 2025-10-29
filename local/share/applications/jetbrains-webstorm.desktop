@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=WebStorm 2025.2.4
+GenericName=IDE
+Comment=Integrated Development Environment
+Exec=webstorm %f
+Icon=webstorm
+Terminal=false
+StartupNotify=true
+Categories=Development;IDE;
+StartupWMClass=jetbrains-webstorm
+MimeType=text/x-java;text/x-python;text/x-kotlin;text/x-scala;
+Keywords=jetbrains;idea;web;ide;editor;webstorm;
