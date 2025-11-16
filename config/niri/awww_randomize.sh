@@ -13,7 +13,7 @@ if [[ $# -lt 1 ]] || [[ ! -d $1   ]]; then
 fi
 
 # This controls (in seconds) when to switch to the next image
-INTERVAL=300
+INTERVAL=3000
 
 while true; do
 	find "$1" -type f -name '*.png' \
@@ -22,7 +22,7 @@ while true; do
 		done \
 		| sort -n | cut -d':' -f2- \
 		| while read -r img; do
-			swww img --transition-type none "$img"
+			awww img --namespace bg --transition-type none "$img"
 			sleep $INTERVAL
 		done
 done
