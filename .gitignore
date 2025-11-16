@@ -3,3 +3,5 @@
 config/picom/log
 
 config/snipaste/history
+
+config/mpd/database
