@@ -1,0 +1,7 @@
+recent-windows {
+    binds {
+        Alt+Tab { next-window scope="workspace"; }
+    }
+}
+
+

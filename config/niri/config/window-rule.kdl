@@ -1,0 +1,21 @@
+// 窗口规则
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+    opacity 1.0
+}
+window-rule {
+    match app-id="flameshot" title="flameshot-pin"
+    open-floating true
+}
+
+window-rule {
+    match app-id="mpv"
+    open-floating true
+    default-floating-position x=1270 y=670 relative-to="top-left"
+    min-width 637
+    max-width 637
+    min-height 366
+    max-height 366
+}
+

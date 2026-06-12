@@ -1,0 +1,19 @@
+// layer 规则
+layer-rule {
+    match namespace="wallpaper"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="eww-bar"
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="eww-volume"
+    background-effect {
+        blur true
+    }
+}

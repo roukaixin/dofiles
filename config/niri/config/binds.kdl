@@ -1,0 +1,387 @@
+binds {
+    Mod+Shift+Slash {
+        show-hotkey-overlay
+    }
+    Mod+Return {
+        spawn "foot"
+    }
+    Mod+P {
+        spawn "fuzzel"
+    }
+    // 锁屏
+    Mod+N {
+        spawn-sh "swaylock --screenshots --effect-blur 6x0 -f"
+    }
+    // 切换 overview
+    Mod+Tab {
+        toggle-overview
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ && wp-vol"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1- && wp-vol"
+    }
+    // 切换浮动
+    Mod+V {
+        toggle-window-floating
+    }
+    // 列（column）和tab之间切换
+    Mod+W {
+        toggle-column-tabbed-display
+    }
+    // 关闭窗口
+    Mod+C {
+        close-window
+    }
+    // 聚焦到左边列（column）
+    Mod+Left {
+        focus-column-left
+    }
+    // 聚焦到右边列（column）
+    Mod+Right {
+        focus-column-right
+    }
+    Mod+Down {
+        focus-window-down
+    }
+    Mod+Up {
+        focus-window-up
+    }
+    // 聚焦到左边列（column）
+    Mod+H {
+        focus-column-left
+    }
+    Mod+J {
+        focus-window-down
+    }
+    Mod+K {
+        focus-window-up
+    }
+    // 聚焦到右边列（column）
+    Mod+L {
+        focus-column-right
+    }
+    // 移动列（column）到左边
+    Mod+Ctrl+Left {
+        move-column-left
+    }
+    // 移动列（column）到右边
+    Mod+Ctrl+Right {
+        move-column-right
+    }
+    Mod+Ctrl+Down {
+        move-window-down
+    }
+    Mod+Ctrl+Up {
+        move-window-up
+    }
+    // 移动列（column）到左边
+    Mod+Ctrl+H {
+        move-column-left
+    }
+    Mod+Ctrl+J {
+        move-window-down
+    }
+    Mod+Ctrl+K {
+        move-window-up
+    }
+    // 移动列（column）到右边
+    Mod+Ctrl+L {
+        move-column-right
+    }
+    // Alternative commands that move across workspaces when reaching
+    // the first or last window in a column.
+    // Mod+J     { focus-window-or-workspace-down; }
+    // Mod+K     { focus-window-or-workspace-up; }
+    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
+    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+    Mod+Home {
+        focus-column-first
+    }
+    Mod+End {
+        focus-column-last
+    }
+    Mod+Ctrl+Home {
+        move-column-to-first
+    }
+    Mod+Ctrl+End {
+        move-column-to-last
+    }
+    Mod+Shift+Left {
+        focus-monitor-left
+    }
+    Mod+Shift+Down {
+        focus-monitor-down
+    }
+    Mod+Shift+Up {
+        focus-monitor-up
+    }
+    Mod+Shift+Right {
+        focus-monitor-right
+    }
+    Mod+Shift+H {
+        focus-monitor-left
+    }
+    Mod+Shift+J {
+        focus-monitor-down
+    }
+    Mod+Shift+K {
+        focus-monitor-up
+    }
+    Mod+Shift+L {
+        focus-monitor-right
+    }
+    Mod+Shift+Ctrl+Left {
+        move-column-to-monitor-left
+    }
+    Mod+Shift+Ctrl+Down {
+        move-column-to-monitor-down
+    }
+    Mod+Shift+Ctrl+Up {
+        move-column-to-monitor-up
+    }
+    Mod+Shift+Ctrl+Right {
+        move-column-to-monitor-right
+    }
+    Mod+Shift+Ctrl+H {
+        move-column-to-monitor-left
+    }
+    Mod+Shift+Ctrl+J {
+        move-column-to-monitor-down
+    }
+    Mod+Shift+Ctrl+K {
+        move-column-to-monitor-up
+    }
+    Mod+Shift+Ctrl+L {
+        move-column-to-monitor-right
+    }
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
+    // ...
+    // And you can also move a whole workspace to another monitor:
+    // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
+    // ...
+    Mod+Page_Down {
+        focus-workspace-down
+    }
+    Mod+Page_Up {
+        focus-workspace-up
+    }
+    // 聚焦到下一个工作区
+    Mod+U {
+        focus-workspace-down
+    }
+    // 聚焦到下一个工具区
+    Mod+I {
+        focus-workspace-up
+    }
+    Mod+Ctrl+Page_Down {
+        move-column-to-workspace-down
+    }
+    Mod+Ctrl+Page_Up {
+        move-column-to-workspace-up
+    }
+    // 移动列到下一个工作区
+    Mod+Ctrl+U {
+        move-column-to-workspace-down
+    }
+    // 移动列到上一个工作区
+    Mod+Ctrl+I {
+        move-column-to-workspace-up
+    }
+    // Alternatively, there are commands to move just a single window:
+    // 移动窗口到下一个工作区
+    Mod+Shift+U {
+        move-window-to-workspace-down
+    }
+    // 移动窗口到上一个工作区
+    Mod+Shift+I {
+        move-window-to-workspace-up
+    }
+    Mod+Alt+Page_Down {
+        move-workspace-down
+    }
+    Mod+Alt+Page_Up {
+        move-workspace-up
+    }
+    Mod+Alt+U {
+        move-workspace-down
+    }
+    Mod+Alt+I {
+        move-workspace-up
+    }
+    // You can refer to workspaces by index. However, keep in mind that
+    // niri is a dynamic workspace system, so these commands are kind of
+    // "best effort". Trying to refer to a workspace index bigger than
+    // the current workspace count will instead refer to the bottommost
+    // (empty) workspace.
+    //
+    // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
+    // will all refer to the 3rd workspace.
+    Mod+1 {
+        focus-workspace 1
+    }
+    Mod+2 {
+        focus-workspace 2
+    }
+    Mod+3 {
+        focus-workspace 3
+    }
+    Mod+4 {
+        focus-workspace 4
+    }
+    Mod+5 {
+        focus-workspace 5
+    }
+    Mod+6 {
+        focus-workspace 6
+    }
+    Mod+7 {
+        focus-workspace 7
+    }
+    Mod+8 {
+        focus-workspace 8
+    }
+    Mod+9 {
+        focus-workspace 9
+    }
+    Mod+Ctrl+1 {
+        move-column-to-workspace 1
+    }
+    Mod+Ctrl+2 {
+        move-column-to-workspace 2
+    }
+    Mod+Ctrl+3 {
+        move-column-to-workspace 3
+    }
+    Mod+Ctrl+4 {
+        move-column-to-workspace 4
+    }
+    Mod+Ctrl+5 {
+        move-column-to-workspace 5
+    }
+    Mod+Ctrl+6 {
+        move-column-to-workspace 6
+    }
+    Mod+Ctrl+7 {
+        move-column-to-workspace 7
+    }
+    Mod+Ctrl+8 {
+        move-column-to-workspace 8
+    }
+    Mod+Ctrl+9 {
+        move-column-to-workspace 9
+    }
+    Mod+Shift+1 {
+        move-window-to-workspace 1
+    }
+    Mod+Shift+2 {
+        move-window-to-workspace 2
+    }
+    Mod+Shift+3 {
+        move-window-to-workspace 3
+    }
+    Mod+Shift+4 {
+        move-window-to-workspace 4
+    }
+    Mod+Shift+5 {
+        move-window-to-workspace 5
+    }
+    Mod+Shift+6 {
+        move-window-to-workspace 6
+    }
+    Mod+Shift+7 {
+        move-window-to-workspace 7
+    }
+    Mod+Shift+8 {
+        move-window-to-workspace 8
+    }
+    Mod+Shift+9 {
+        move-window-to-workspace 9
+    }
+    Mod+Comma {
+        consume-window-into-column
+    }
+    Mod+Period {
+        expel-window-from-column
+    }
+    // There are also commands that consume or expel a single window to the side.
+    // Mod+BracketLeft  { consume-or-expel-window-left; }
+    // Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+R {
+        switch-preset-column-width
+    }
+    // 最大化列
+    Mod+F {
+        maximize-column
+    }
+    // 全屏窗口
+    Mod+Shift+F {
+        fullscreen-window
+    }
+    // 居中列
+    Mod+T {
+        center-column
+    }
+    // Finer width adjustments.
+    // This command can also:
+    // * set width in pixels: "1000"
+    // * adjust width in pixels: "-5" or "+5"
+    // * set width as a percentage of screen width: "25%"
+    // * adjust width as a percentage of screen width: "-10%" or "+10%"
+    // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
+    // set-column-width "100" will make the column occupy 200 physical screen pixels.
+    // 列（column）减少 10%
+    Mod+Minus {
+        set-column-width "-10%"
+    }
+    // 列（column）增加 10%
+    Mod+Equal {
+        set-column-width "+10%"
+    }
+    // Finer height adjustments when in column with other windows.
+    // 窗口高度减少 10%
+    Mod+Shift+Minus {
+        set-window-height "-10%"
+    }
+    // 窗口高度增加 10%
+    Mod+Shift+Equal {
+        set-window-height "+10%"
+    }
+    // Actions to switch layouts.
+    // Note: if you uncomment these, make sure you do NOT have
+    // a matching layout switch hotkey configured in xkb options above.
+    // Having both at once on the same hotkey will break the switching,
+    // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
+    // Mod+Space       { switch-layout "next"; }
+    // Mod+Shift+Space { switch-layout "prev"; }
+    Print {
+        screenshot show-pointer=false
+    }
+    Ctrl+Print {
+        screenshot-screen show-pointer=false
+    }
+    Alt+Print {
+        screenshot-window
+    }
+    // The quit action will show a confirmation dialog to avoid accidental exits.
+    // If you want to skip the confirmation dialog, set the flag like so:
+    // 退出并跳过确认
+    Mod+Shift+Q {
+        quit skip-confirmation=true
+    }
+    // 关闭屏幕
+    Mod+Shift+P {
+        power-off-monitors
+    }
+ // This debug bind will tint all surfaces green, unless they are being
+// directly scanned out. It's therefore useful to check if direct scanout
+// is working.
+// Mod+Shift+Ctrl+T { toggle-debug-tint; }
+}
+
+
