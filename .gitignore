@@ -5,3 +5,5 @@ config/picom/log
 config/snipaste/history
 
 config/mpd/database
+
+config/mpv/watch_later
