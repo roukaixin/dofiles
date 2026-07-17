@@ -9,4 +9,4 @@
                "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
   (list (channel
           (inherit (car %default-channels))
-          (url "https://mirror.sjtu.edu.cn/git/guix.git"))))
+          (url "https://mirror.nju.edu.cn/git/guix.git"))))
