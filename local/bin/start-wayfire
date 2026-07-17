@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+# export GBM_BACKEND=nvidia-drm
+# export __GLX_VENDOR_LIBRARY_NAME=nvidia
+
+# export WLR_DRM_DEVICE=/dev/dri/card1
+# export WLR_RENDER_DRM_DEVICE=/dev/dri/renderD128
+# export WLR_RENDER_DRM_DEVICE=/dev/dri/renderD128
+# export WLR_RENDERER=gles2
+
+
+
+export LANG=zh_CN.UTF-8
+export LANGUAGE=zh_CN:en_US
+
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+
+export QT_IM_MODULES="wayland;fcitx"
+export QT_IM_MODULE=fcitx
+export SDL_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+export GLFW_IM_MODULE=ibus
+
+echo "" > ~/wayfire.log
+exec >> ~/wayfire.log 2>&1
+
+exec wayfire "$@"
