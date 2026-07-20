@@ -1,0 +1,28 @@
+name: 监控上游仓库更新（每日晚6点）
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const result = await github.rest.issues.create({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          title: '由 github-actions[bot] 创建的 Issue',
+                          body: '这是默认机器人创建的测试 Issue。'
+                        });
+            console.log(`创建成功 #${result.data.number}`);
