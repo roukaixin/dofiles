@@ -49,9 +49,11 @@ type RespRelease struct {
 }
 
 var (
-	owner       string
-	repo        string
-	githubToken string
+	owner         string
+	repo          string
+	githubToken   string
+	isUpdate      bool
+	updatePackage map[Pkg]string = make(map[Pkg]string)
 )
 
 func init() {
@@ -78,92 +80,13 @@ func main() {
 	}
 	var pkgList []Pkg
 	err = json.Unmarshal(c, &pkgList)
-	var isUpdate bool
-	var updatePackage map[Pkg]string = make(map[Pkg]string)
 
 	for _, pkg := range pkgList {
 		switch pkg.Type {
 		case "branch":
-			var url string = fmt.Sprintf(GitRefApi, pkg.Repo, "heads/"+pkg.Branch)
-			req, err := http.NewRequest("GET", url, nil)
-			if err != nil {
-				fmt.Printf("%#v\n", err)
-			}
-			if len(githubToken) > 0 {
-				req.Header.Set("Authorization", "token "+githubToken)
-			}
-			client := &http.Client{}
-			resp, err := client.Do(req)
-			if err != nil {
-				fmt.Printf("%#v\n", err)
-			}
-			if resp.StatusCode == 200 {
-				defer func(Body io.ReadCloser) {
-					err := Body.Close()
-					if err != nil {
-
-					}
-				}(resp.Body)
-				body, err := io.ReadAll(resp.Body)
-				if err != nil {
-					fmt.Printf("%#v\n", err)
-				}
-				var respBody RespBranch
-				_ = json.Unmarshal(body, &respBody)
-				newCommit := respBody.Object.Sha
-				var key string = pkg.Repo + ":" + pkg.Type + ":" + pkg.Branch
-				value, ok := statusMap[key]
-				if ok && newCommit != value {
-					// 有更新
-					isUpdate = true
-					updatePackage[pkg] = newCommit
-				} else if len(newCommit) > 0 {
-					isUpdate = true
-					updatePackage[pkg] = newCommit
-				}
-				statusMap[key] = newCommit
-			}
+			GetNewCommit(pkg, &statusMap)
 		case "release":
-			{
-				var url string = fmt.Sprintf(ReleasesLatestApi, pkg.Repo)
-				req, err := http.NewRequest("GET", url, nil)
-				if err != nil {
-					fmt.Printf("%#v\n", err)
-				}
-				if len(githubToken) > 0 {
-					req.Header.Set("Authorization", "token "+githubToken)
-				}
-				client := &http.Client{}
-				resp, err := client.Do(req)
-				if err != nil {
-					fmt.Printf("%#v\n", err)
-				}
-				if resp.StatusCode == 200 {
-					defer func(Body io.ReadCloser) {
-						err := Body.Close()
-						if err != nil {
-
-						}
-					}(resp.Body)
-					body, err := io.ReadAll(resp.Body)
-					if err != nil {
-						fmt.Printf("%#v\n", err)
-					}
-					var respRelease RespRelease
-					_ = json.Unmarshal(body, &respRelease)
-					newRelease := respRelease.TagName
-					var key string = pkg.Repo + ":" + pkg.Type
-					value, ok := statusMap[key]
-					if ok && newRelease != value {
-						isUpdate = true
-						updatePackage[pkg] = newRelease
-					} else if len(newRelease) > 0 {
-						isUpdate = true
-						updatePackage[pkg] = newRelease
-					}
-					statusMap[key] = newRelease
-				}
-			}
+			GetLatestRelease(pkg, &statusMap)
 		}
 	}
 
@@ -232,4 +155,91 @@ func CreateIssues(body []byte) {
 		return
 	}
 	panic("create issues error")
+}
+
+func GetLatestRelease(pkg Pkg, statusMap *map[string]string) {
+	var url string = fmt.Sprintf(ReleasesLatestApi, pkg.Repo)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+	}
+	if len(githubToken) > 0 {
+		req.Header.Set("Authorization", "token "+githubToken)
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+	}
+	if resp.StatusCode == 200 {
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+
+			}
+		}(resp.Body)
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Printf("%#v\n", err)
+		}
+		var respRelease RespRelease
+		_ = json.Unmarshal(body, &respRelease)
+		newRelease := respRelease.TagName
+		var key string = pkg.Repo + ":" + pkg.Type
+		value, ok := (*statusMap)[key]
+		if ok {
+			if newRelease != value {
+				isUpdate = true
+				updatePackage[pkg] = newRelease
+			}
+		} else if len(newRelease) > 0 {
+			isUpdate = true
+			updatePackage[pkg] = newRelease
+		}
+		(*statusMap)[key] = newRelease
+	}
+
+}
+
+func GetNewCommit(pkg Pkg, statusMap *map[string]string) {
+	var url string = fmt.Sprintf(GitRefApi, pkg.Repo, "heads/"+pkg.Branch)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+		return
+	}
+	if len(githubToken) > 0 {
+		req.Header.Set("Authorization", "token "+githubToken)
+	}
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+		return
+	}
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
+	if resp.StatusCode == 200 {
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Printf("%#v\n", err)
+			return
+		}
+		var respBody RespBranch
+		_ = json.Unmarshal(body, &respBody)
+		newCommit := respBody.Object.Sha
+		var key string = pkg.Repo + ":" + pkg.Type + ":" + pkg.Branch
+		value, ok := (*statusMap)[key]
+		if ok && newCommit != value {
+			if newCommit != value {
+				// 有更新
+				isUpdate = true
+				updatePackage[pkg] = newCommit
+			}
+		} else if len(newCommit) > 0 {
+			isUpdate = true
+			updatePackage[pkg] = newCommit
+		}
+		(*statusMap)[key] = newCommit
+	}
 }
