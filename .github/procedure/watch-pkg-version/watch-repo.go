@@ -170,10 +170,8 @@ func main() {
 		// 刷新状态
 		w, _ := json.MarshalIndent(statusMap, "", "  ")
 		err = os.WriteFile(WatchPackageStatus, w, 0644)
-		fmt.Printf("%#v", updatePackage)
 		if err == nil {
 			// 提交 issues
-
 			var payload map[string]string = map[string]string{
 				"title": "由 github-actions[bot] 创建的 Issue",
 				"body":  "这是默认机器人创建的测试 Issue。",
