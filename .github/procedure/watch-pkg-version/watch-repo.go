@@ -230,7 +230,7 @@ func GetNewCommit(pkg Pkg, statusMap *map[string]string) {
 		newCommit := respBody.Object.Sha
 		var key string = pkg.Repo + ":" + pkg.Type + ":" + pkg.Branch
 		value, ok := (*statusMap)[key]
-		if ok && newCommit != value {
+		if ok {
 			if newCommit != value {
 				// 有更新
 				isUpdate = true

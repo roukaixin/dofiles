@@ -28,11 +28,21 @@ jobs:
             cd .github
             go run procedure/watch-pkg-version/watch-repo.go
 
+      - name: Check for changes
+        run: |
+          if git diff --quiet HEAD; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit files
+        if: steps.check.outputs.changed == 'true'
         run: |
           git config --local user.email "a3427173515@163.com"
           git config --local user.name "roukaixin"
           git commit -a -m "update package version"
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
