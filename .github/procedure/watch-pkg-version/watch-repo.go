@@ -25,9 +25,10 @@ const WatchPackageList string = "procedure/watch-pkg-version/package-list.json"
 const WatchPackageStatus string = "procedure/watch-pkg-version/upstream-status.json"
 
 type Pkg struct {
-	Type   string `json:"type"`
-	Repo   string `json:"repo"`
-	Branch string `json:"branch"`
+	Type    string `json:"type"`
+	Repo    string `json:"repo"`
+	Branch  string `json:"branch"`
+	Package string `json:"package"`
 }
 
 type Object struct {
@@ -170,11 +171,36 @@ func main() {
 		// 刷新状态
 		w, _ := json.MarshalIndent(statusMap, "", "  ")
 		err = os.WriteFile(WatchPackageStatus, w, 0644)
+		var title strings.Builder
+		title.WriteString("Update ")
+
+		var body strings.Builder
+		body.WriteString("Several packages have new upstream releases:\n\n")
+		body.WriteString("| Package | Version |\n")
+		body.WriteString("|---|---|\n")
+
+		for pkg, version := range updatePackage {
+			title.WriteString(pkg.Package)
+			title.WriteString(" ")
+			_, err := fmt.Fprintf(
+				&body,
+				"| %s | %s |\n",
+				pkg.Package,
+				version,
+			)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		title.WriteString("packages")
+		body.WriteString("\nPlease consider updating these packages.")
+
 		if err == nil {
 			// 提交 issues
 			var payload map[string]string = map[string]string{
-				"title": "由 github-actions[bot] 创建的 Issue",
-				"body":  "这是默认机器人创建的测试 Issue。",
+				"title": title.String(),
+				"body":  body.String(),
 			}
 			body, _ := json.Marshal(payload)
 			CreateIssues(body)
@@ -197,12 +223,9 @@ func CreateIssues(body []byte) {
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
-		if err != nil {
-
-		}
+		panic(err)
 	}(resp.Body)
-	fmt.Printf("%#v\n", resp)
-	if resp.StatusCode == http.StatusOK {
+	if resp.StatusCode == http.StatusCreated {
 		return
 	}
 	panic("create issues 失败")
