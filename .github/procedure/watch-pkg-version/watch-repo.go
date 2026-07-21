@@ -43,10 +43,10 @@ type RespRelease struct {
 }
 
 func init() {
-	envs := os.Environ()
-	for _, env := range envs {
-		fmt.Printf("%#v", env)
-	}
+	githubRepo := os.Getenv("GITHUB_REPOSITORY")
+	fmt.Printf("%#v\n", githubRepo)
+	githubToken := os.Getenv("GITHUB_TOKEN")
+	fmt.Printf("%#v\n", githubToken)
 }
 
 func main() {
@@ -91,7 +91,7 @@ func main() {
 					fmt.Printf("%#v\n", err)
 				}
 				var respBody RespBranch
-				json.Unmarshal(body, &respBody)
+				_ = json.Unmarshal(body, &respBody)
 				newCommit := respBody.Object.Sha
 				var key string = pkg.Repo + ":" + pkg.Type + ":" + pkg.Branch
 				value, ok := statusMap[key]
@@ -127,7 +127,7 @@ func main() {
 						fmt.Printf("%#v\n", err)
 					}
 					var respRelease RespRelease
-					json.Unmarshal(body, &respRelease)
+					_ = json.Unmarshal(body, &respRelease)
 					newRelease := respRelease.TagName
 					var key string = pkg.Repo + ":" + pkg.Type
 					value, ok := statusMap[key]
@@ -148,7 +148,7 @@ func main() {
 		// 提交 issues
 		// 刷新状态
 		w, _ := json.MarshalIndent(statusMap, "", "  ")
-		os.WriteFile(WATCH_PACKAGE_STATUS, w, 0644)
+		_ = os.WriteFile(WATCH_PACKAGE_STATUS, w, 0644)
 		fmt.Printf("%#v", updatePackage)
 	}
 }
