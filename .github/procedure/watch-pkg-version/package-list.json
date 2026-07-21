@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "emoeem/voicefox",
+    "branch": "main",
+    "type": "branch"
+  },
+  {
+    "repo": "jeff141/meatshell",
+    "type": "release"
+  }
+]

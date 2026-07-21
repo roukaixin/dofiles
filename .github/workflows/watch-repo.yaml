@@ -16,13 +16,217 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: actions/github-script@v9
+      - uses: actions/setup-go@v6
         with:
-          script: |
-            const result = await github.rest.issues.create({
-                          owner: context.repo.owner,
-                          repo: context.repo.repo,
-                          title: '由 github-actions[bot] 创建的 Issue',
-                          body: '这是默认机器人创建的测试 Issue。'
-                        });
-            console.log(`创建成功 #${result.data.number}`);
+          go-version: '1.26'
+
+      - name: run go
+        run: |
+            cd .github
+            go run procedure/watch-pkg-version/watch-repo.go
+
+      # - name: 运行监控脚本
+      #   uses: actions/github-script@v9
+      #   with:
+      #     script: |
+      #       const fs = require('fs');
+      #       const path = require('path');
+      #       const { execSync } = require('child_process');
+
+      #       // ========== 配置 ==========
+      #       const CONFIG = {
+      #         watchFile: '.github/watchlist.json',
+      #         statusDir: '.github/status',
+      #         statusFile: '.github/status/upstream-status.json',
+      #         issueLabel: 'upstream-update',
+      #         timezone: 'Asia/Shanghai'
+      #       };
+
+      #       // 确保目录存在
+      #       const ensureDir = (dir) => {
+      #         if (!fs.existsSync(dir)) {
+      #           fs.mkdirSync(dir, { recursive: true });
+      #         }
+      #       };
+
+      #       // 读取 JSON，异常时返回默认值
+      #       const readJSON = (file, defaultVal = {}) => {
+      #         try {
+      #           if (fs.existsSync(file)) {
+      #             return JSON.parse(fs.readFileSync(file, 'utf8'));
+      #           }
+      #         } catch (err) {
+      #         }
+      #         return defaultVal;
+      #       };
+
+      #       // 获取日期字符串（北京时间）
+      #       const getDateStr = () => {
+      #         return new Date().toLocaleString('zh-CN', { timeZone: CONFIG.timezone }).slice(0, 10);
+      #       };
+
+      #       // 分割 repo 为 owner/repo
+      #       const splitRepo = (repo) => {
+      #         const parts = repo.split('/');
+      #         if (parts.length !== 2) throw new Error(`无效的仓库格式: ${repo}`);
+      #         return { owner: parts[0], repo: parts[1] };
+      #       };
+
+      #       // 语义化版本排序（支持 v1.2.3 或 1.2.3）
+      #       const sortVersions = (tags) => {
+      #         return tags.sort((a, b) => {
+      #           const cleanA = a.replace(/^v/, '');
+      #           const cleanB = b.replace(/^v/, '');
+      #           const partsA = cleanA.split('.').map(Number);
+      #           const partsB = cleanB.split('.').map(Number);
+      #           for (let i = 0; i < Math.max(partsA.length, partsB.length); i++) {
+      #             const numA = partsA[i] || 0;
+      #             const numB = partsB[i] || 0;
+      #             if (numA !== numB) return numA - numB;
+      #           }
+      #           return 0;
+      #         });
+      #       };
+
+      #       // ========== 各类型检查器 ==========
+      #       const checkers = {
+      #         branch: async (octokit, repo, branch) => {
+      #           const { owner, repo: repoName } = splitRepo(repo);
+      #           const { data } = await octokit.rest.git.getRef({
+      #             owner,
+      #             repo: repoName,
+      #             ref: `heads/${branch}`
+      #           });
+      #           const sha = data.object.sha;
+      #           return {
+      #             key: `${repo}:${branch}`,
+      #             value: sha,
+      #             display: `分支: \`${branch}\` → 最新提交: \`${sha.slice(0, 7)}\``
+      #           };
+      #         },
+      #         release: async (octokit, repo) => {
+      #           const { owner, repo: repoName } = splitRepo(repo);
+      #           const { data } = await octokit.rest.repos.getLatestRelease({
+      #             owner,
+      #             repo: repoName
+      #           });
+      #           return {
+      #             key: `${repo}:release`,
+      #             value: data.tag_name,
+      #             display: `最新 Release: \`${data.tag_name}\``
+      #           };
+      #         },
+      #         tag: async (octokit, repo) => {
+      #           const { owner, repo: repoName } = splitRepo(repo);
+      #           const { data } = await octokit.rest.git.listMatchingRefs({
+      #             owner,
+      #             repo: repoName,
+      #             ref: 'tags/'
+      #           });
+      #           // 过滤掉 annotated tag 的引用（带有 ^{}）
+      #           const tags = data
+      #             .map(ref => ref.ref.replace('refs/tags/', ''))
+      #             .filter(tag => !tag.includes('^{}'));
+      #           if (tags.length === 0) {
+      #             throw new Error('该仓库暂无 Tag');
+      #           }
+      #           const sorted = sortVersions(tags);
+      #           const latest = sorted[sorted.length - 1];
+      #           return {
+      #             key: `${repo}:tag`,
+      #             value: latest,
+      #             display: `最新 Tag: \`${latest}\``
+      #           };
+      #         }
+      #       };
+
+      #       // ========== 主流程 ==========
+      #       (async () => {
+      #         // 1. 读取配置和状态
+      #         ensureDir(CONFIG.statusDir);
+      #         const status = readJSON(CONFIG.statusFile);
+      #         const watchlist = readJSON(CONFIG.watchFile, []);
+
+      #         if (!watchlist.length) {
+      #           return;
+      #         }
+
+      #         const octokit = github;
+      #         const updateDetails = [];
+      #         const newStatus = { ...status };
+      #         let hasUpdate = false;
+
+      #         // 2. 并行执行所有检查
+      #         const checkPromises = watchlist.map(async (item) => {
+      #           const { repo, type = 'branch', branch } = item;
+      #           try {
+      #             let result;
+      #             if (type === 'branch') {
+      #               if (!branch) throw new Error('branch 类型必须提供 branch 字段');
+      #               result = await checkers.branch(octokit, repo, branch);
+      #             } else if (type === 'release') {
+      #               result = await checkers.release(octokit, repo);
+      #             } else if (type === 'tag') {
+      #               result = await checkers.tag(octokit, repo);
+      #             } else {
+      #               throw new Error(`未知类型: ${type}`);
+      #             }
+
+      #             const oldValue = status[result.key] || '';
+      #             if (result.value !== oldValue) {
+      #               log.info(`[更新] ${repo} (${type}) → ${result.value.slice(0, 7)}`);
+      #               updateDetails.push(`- **${repo}** (${type}) → ${result.display}`);
+      #               newStatus[result.key] = result.value;
+      #               hasUpdate = true;
+      #             } else {
+      #               log.info(`[无变化] ${repo} (${type})`);
+      #             }
+      #           } catch (err) {
+      #             log.error(`检查 ${repo} 失败: ${err.message}`);
+      #             // 单个失败不影响整体
+      #           }
+      #         });
+
+      #         await Promise.all(checkPromises);
+
+      #         // 3. 没有更新则退出
+      #         if (!hasUpdate) {
+      #           log.success('所有上游仓库均无更新');
+      #           return;
+      #         }
+
+      #         // 4. 创建 Issue
+      #         const body = [
+      #           '以下上游仓库在最近一次检查中发现新的更新：\n',
+      #           ...updateDetails,
+      #           '\n请及时评估并更新相关依赖。',
+      #           `\n> 检查时间: ${new Date().toLocaleString('zh-CN', { timeZone: CONFIG.timezone })}`
+      #         ].join('\n');
+
+      #         const title = `上游更新：${getDateStr()} 检测到新版本`;
+
+      #         await octokit.rest.issues.create({
+      #           owner: context.repo.owner,
+      #           repo: context.repo.repo,
+      #           title,
+      #           body,
+      #           labels: [CONFIG.issueLabel]
+      #         });
+
+      #         log.success('Issue 创建成功');
+
+      #         // 5. 更新状态文件并提交
+      #         fs.writeFileSync(CONFIG.statusFile, JSON.stringify(newStatus, null, 2));
+
+      #         try {
+      #           execSync('git config user.name "github-actions[bot]"', { stdio: 'inherit' });
+      #           execSync('git config user.email "github-actions[bot]@users.noreply.github.com"', { stdio: 'inherit' });
+      #           execSync(`git add ${CONFIG.statusFile}`, { stdio: 'inherit' });
+      #           execSync(`git commit -m "自动更新上游监控状态 [skip ci]"`, { stdio: 'inherit' });
+      #           execSync('git push', { stdio: 'inherit' });
+      #           log.success('状态文件已提交并推送');
+      #         } catch (gitErr) {
+      #           log.error(`Git 操作失败: ${gitErr.message}`);
+      #           // 不阻断，但需要人工处理
+      #         }
+      #       })();
