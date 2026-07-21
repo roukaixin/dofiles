@@ -2,10 +2,12 @@
   {
     "repo": "emoeem/voicefox",
     "branch": "main",
-    "type": "branch"
+    "type": "branch",
+    "package": "voicefox"
   },
   {
     "repo": "jeff141/meatshell",
-    "type": "release"
+    "type": "release",
+    "package": "meatshell"
   }
 ]
