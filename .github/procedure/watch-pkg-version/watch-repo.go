@@ -1,23 +1,28 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
-const GITHUB_API = "https://api.github.com"
+const GithubApi = "https://api.github.com"
 
-// GET /repos/{owner}/{repo}/git/refs/{ref}
-const GIT_REF_API string = GITHUB_API + "/repos/%s/git/refs/%s"
+// GitRefApi GET /repos/{owner}/{repo}/git/refs/{ref}
+const GitRefApi string = GithubApi + "/repos/%s/git/refs/%s"
 
-// GET /repos/{owner}/{repo}/releases/latest
-const RELEASES_LATEST_API = GITHUB_API + "/repos/%s/releases/latest"
+// ReleasesLatestApi GET /repos/{owner}/{repo}/releases/latest
+const ReleasesLatestApi = GithubApi + "/repos/%s/releases/latest"
 
-const WATCH_PACKAGE_LIST string = "procedure/watch-pkg-version/package-list.json"
-const WATCH_PACKAGE_STATUS string = "procedure/watch-pkg-version/upstream-status.json"
+// IssuesApi POST /repos/{owner}/{repo}/issues
+const IssuesApi = GithubApi + "/repos/%s/%s/issues"
+
+const WatchPackageList string = "procedure/watch-pkg-version/package-list.json"
+const WatchPackageStatus string = "procedure/watch-pkg-version/upstream-status.json"
 
 type Pkg struct {
 	Type   string `json:"type"`
@@ -42,19 +47,26 @@ type RespRelease struct {
 	TagName string `json:"tag_name"`
 }
 
+var (
+	owner       string
+	repo        string
+	githubToken string
+)
+
 func init() {
 	githubRepo := os.Getenv("GITHUB_REPOSITORY")
-	fmt.Printf("%#v\n", githubRepo)
-	githubToken := os.Getenv("GITHUB_TOKEN")
-	fmt.Printf("%#v\n", githubToken)
+	repoInfo := strings.Split(githubRepo, "/")
+	owner = repoInfo[0]
+	repo = repoInfo[1]
+	githubToken = os.Getenv("GITHUB_TOKEN")
 }
 
 func main() {
-	c, err := os.ReadFile(WATCH_PACKAGE_LIST)
+	c, err := os.ReadFile(WatchPackageList)
 	if err != nil {
 		panic(err)
 	}
-	statusByte, err := os.ReadFile(WATCH_PACKAGE_STATUS)
+	statusByte, err := os.ReadFile(WatchPackageStatus)
 	if err != nil {
 		panic(err)
 	}
@@ -67,11 +79,11 @@ func main() {
 	err = json.Unmarshal(c, &pkgList)
 	var isUpdate bool
 	var updatePackage map[Pkg]string = make(map[Pkg]string)
-	githubToken := os.Getenv("GITHUB_TOKEN")
+
 	for _, pkg := range pkgList {
 		switch pkg.Type {
 		case "branch":
-			var url string = fmt.Sprintf(GIT_REF_API, pkg.Repo, "heads/"+pkg.Branch)
+			var url string = fmt.Sprintf(GitRefApi, pkg.Repo, "heads/"+pkg.Branch)
 			req, err := http.NewRequest("GET", url, nil)
 			if err != nil {
 				fmt.Printf("%#v\n", err)
@@ -85,7 +97,12 @@ func main() {
 				fmt.Printf("%#v\n", err)
 			}
 			if resp.StatusCode == 200 {
-				defer resp.Body.Close()
+				defer func(Body io.ReadCloser) {
+					err := Body.Close()
+					if err != nil {
+
+					}
+				}(resp.Body)
 				body, err := io.ReadAll(resp.Body)
 				if err != nil {
 					fmt.Printf("%#v\n", err)
@@ -107,7 +124,7 @@ func main() {
 			}
 		case "release":
 			{
-				var url string = fmt.Sprintf(RELEASES_LATEST_API, pkg.Repo)
+				var url string = fmt.Sprintf(ReleasesLatestApi, pkg.Repo)
 				req, err := http.NewRequest("GET", url, nil)
 				if err != nil {
 					fmt.Printf("%#v\n", err)
@@ -121,7 +138,12 @@ func main() {
 					fmt.Printf("%#v\n", err)
 				}
 				if resp.StatusCode == 200 {
-					defer resp.Body.Close()
+					defer func(Body io.ReadCloser) {
+						err := Body.Close()
+						if err != nil {
+
+						}
+					}(resp.Body)
 					body, err := io.ReadAll(resp.Body)
 					if err != nil {
 						fmt.Printf("%#v\n", err)
@@ -145,10 +167,45 @@ func main() {
 	}
 
 	if isUpdate {
-		// 提交 issues
 		// 刷新状态
 		w, _ := json.MarshalIndent(statusMap, "", "  ")
-		_ = os.WriteFile(WATCH_PACKAGE_STATUS, w, 0644)
+		err = os.WriteFile(WatchPackageStatus, w, 0644)
 		fmt.Printf("%#v", updatePackage)
+		if err == nil {
+			// 提交 issues
+
+			var payload map[string]string = map[string]string{
+				"title": "由 github-actions[bot] 创建的 Issue",
+				"body":  "这是默认机器人创建的测试 Issue。",
+			}
+			body, _ := json.Marshal(payload)
+			CreateIssues(body)
+		}
 	}
+}
+
+func CreateIssues(body []byte) {
+	var url string = fmt.Sprintf(IssuesApi, owner, repo)
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(body))
+
+	req.Header.Set("Content-Type", "application/json")
+	if len(githubToken) > 0 {
+		req.Header.Set("Authorization", "token "+githubToken)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
+	fmt.Printf("%#v\n", resp)
+	if resp.StatusCode == http.StatusOK {
+		return
+	}
+	panic("create issues 失败")
 }
