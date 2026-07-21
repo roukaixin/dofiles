@@ -17,12 +17,13 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages gl)
+  #:use-module (gnu packages password-utils)
   #:use-module (extra packages rust-crates))
 
 (define-public meatshell
   (package
     (name "meatshell")
-    (version "0.5.6")
+    (version "0.6.5")
     (source (origin
               (method git-fetch)
               (uri (git-reference
@@ -31,7 +32,7 @@
               (file-name (string-append name "-" version ".tar.gz"))
               (sha256
                 (base32
-                  "1vhlgpffqkq62709rfaqifgpbjhl4i4j4dskgh64dmlmx73v5jmp"))))
+                  "1yy96pclla2ywc11gy88ljrbdqk5v8a6793v5xnwsbacbyp56my3"))))
     (build-system cargo-build-system)
     (arguments
       (list #:tests? #f
@@ -74,7 +75,8 @@
               zlib
               bzip2
               brotli
-              expat)))
+              expat
+              argon2)))
     (native-inputs
       (list pkg-config
             perl
