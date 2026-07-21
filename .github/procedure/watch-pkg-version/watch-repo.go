@@ -173,38 +173,39 @@ func main() {
 		err = os.WriteFile(WatchPackageStatus, w, 0644)
 
 		if err != nil {
-			var title strings.Builder
-			title.WriteString("Update ")
-
-			var issuesBody strings.Builder
-			issuesBody.WriteString("Several packages have new upstream releases:\n\n")
-			issuesBody.WriteString("| Package | Version |\n")
-			issuesBody.WriteString("|---|---|\n")
-
-			for pkg, version := range updatePackage {
-				title.WriteString(pkg.Package)
-				title.WriteString(" ")
-				_, err := fmt.Fprintf(
-					&issuesBody,
-					"| %s | %s |\n",
-					pkg.Package,
-					version,
-				)
-				if err != nil {
-					panic(err)
-				}
-			}
-
-			title.WriteString("packages")
-			issuesBody.WriteString("\nPlease consider updating these packages.")
-			// 提交 issues
-			var payload map[string]string = map[string]string{
-				"title": title.String(),
-				"body":  issuesBody.String(),
-			}
-			body, _ := json.Marshal(payload)
-			CreateIssues(body)
+			panic(err)
 		}
+		var title strings.Builder
+		title.WriteString("Update ")
+
+		var issuesBody strings.Builder
+		issuesBody.WriteString("Several packages have new upstream releases:\n\n")
+		issuesBody.WriteString("| Package | Version |\n")
+		issuesBody.WriteString("|---|---|\n")
+
+		for pkg, version := range updatePackage {
+			title.WriteString(pkg.Package)
+			title.WriteString(" ")
+			_, err := fmt.Fprintf(
+				&issuesBody,
+				"| %s | %s |\n",
+				pkg.Package,
+				version,
+			)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		title.WriteString("packages")
+		issuesBody.WriteString("\nPlease consider updating these packages.")
+		// 提交 issues
+		var payload map[string]string = map[string]string{
+			"title": title.String(),
+			"body":  issuesBody.String(),
+		}
+		body, _ := json.Marshal(payload)
+		CreateIssues(body)
 	}
 }
 
@@ -230,5 +231,5 @@ func CreateIssues(body []byte) {
 	if resp.StatusCode == http.StatusCreated {
 		return
 	}
-	panic("create issues 失败")
+	panic("create issues error")
 }
