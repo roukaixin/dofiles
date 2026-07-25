@@ -9,5 +9,11 @@
     "repo": "jeff141/meatshell",
     "type": "release",
     "package": "meatshell"
+  },
+  {
+    "repo": "chi11321/CrabPort",
+    "branch": "main",
+    "type": "branch",
+    "package": "crab-port"
   }
 ]
