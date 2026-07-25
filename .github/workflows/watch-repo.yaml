@@ -30,7 +30,7 @@ jobs:
 
       - name: Check for changes
         run: |
-          if [ -z "$(if [ -z "$(git status --porcelain)" ]; then)" ]; then
+          if [ -z "$(git status --porcelain -uno)" ]; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
