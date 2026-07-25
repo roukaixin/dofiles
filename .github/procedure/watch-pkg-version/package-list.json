@@ -15,5 +15,23 @@
     "branch": "main",
     "type": "branch",
     "package": "crab-port"
+  },
+  {
+    "repo": "chi11321/CrabPort",
+    "branch": "main",
+    "type": "branch",
+    "package": "crab-port"
+  },
+  {
+    "repo": "WayfireWM/wayfire",
+    "branch": "main",
+    "type": "master",
+    "package": "wayfire"
+  },
+  {
+    "repo": "WayfireWM/wf-shell",
+    "branch": "main",
+    "type": "master",
+    "package": "wf-shell"
   }
 ]

@@ -1,4 +1,6 @@
 {
+  "WayfireWM/wayfire:branch:master": "3b757f096bd5c7912982c28b8420c64b09a32352",
+  "WayfireWM/wf-shell:branch:master": "c045b66360199073efc6ed5efdf6a22ec1e48d92",
   "chi11321/CrabPort:branch:main": "16f0acd7f01c9724f0f6d22b532ec00930084ba4",
   "emoeem/voicefox:branch:main": "ca6fb67318f84f1da1edd8244ff966dba30eef94",
   "jeff141/meatshell:release": "v0.6.7"
