@@ -3236,6 +3236,10 @@
   (crate-source "qoi" "0.4.1"
                 "00c0wkb112annn2wl72ixyd78mf56p4lxkhlmsggx65l3v3n8vbz"))
 
+(define rust-qrcode-0.4.0
+  (crate-source "qrcode" "0.4.0"
+                "0rc4azsab04zq7rxvx7fd1p31cp2da2krb0kmp3mkak7xijhgni7"))
+
 (define rust-quick-error-2.0.1
   (crate-source "quick-error" "2.0.1"
                 "18z6r2rcjvvf8cn92xjhm2qc3jpd1ljvcbf12zv0k9p565gmb4x9"))
@@ -8030,6 +8034,7 @@
                                      rust-pulp-wasm-simd-flag-0.1.1
                                      rust-pxfm-0.1.30
                                      rust-qoi-0.4.1
+                                     rust-qrcode-0.4.0
                                      rust-quick-error-2.0.1
                                      rust-quinn-0.11.11
                                      rust-quinn-proto-0.11.16
