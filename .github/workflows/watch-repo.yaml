@@ -28,9 +28,9 @@ jobs:
             cd .github
             go run procedure/watch-pkg-version/watch-repo.go
 
-      - name: Check for changes
+      - id: check
+        name: Check for changes
         run: |
-          git status
           if [ -z "$(git status --porcelain -uno)" ]; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
