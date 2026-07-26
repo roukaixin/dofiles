@@ -2,7 +2,8 @@ name: 监控上游仓库更新（每日晚6点）
 
 on:
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "0 17 * * *"
+      timezone: "Asia/Shanghai"
   workflow_dispatch:
 
 permissions:
