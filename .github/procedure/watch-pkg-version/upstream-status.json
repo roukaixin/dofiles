@@ -1,7 +1,7 @@
 {
   "WayfireWM/wayfire:branch:master": "3b757f096bd5c7912982c28b8420c64b09a32352",
   "WayfireWM/wf-shell:branch:master": "c045b66360199073efc6ed5efdf6a22ec1e48d92",
-  "chi11321/CrabPort:branch:main": "16f0acd7f01c9724f0f6d22b532ec00930084ba4",
-  "emoeem/voicefox:branch:main": "2dc5664eb3fec11726c08c56b48988ee6211f76e",
-  "jeff141/meatshell:release": "v0.6.7"
+  "chi11321/CrabPort:branch:main": "96ca36f29a2e6f2a01bd24e9b7497c9ccbed8f4f",
+  "emoeem/voicefox:branch:main": "d62f1b8980b7f4dc26e232b8e35bdde80604e766",
+  "jeff141/meatshell:release": "v0.6.8"
 }
