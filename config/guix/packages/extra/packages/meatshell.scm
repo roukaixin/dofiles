@@ -22,7 +22,7 @@
 (define-public meatshell
   (package
     (name "meatshell")
-    (version "0.6.7")
+    (version "0.6.8")
     (source (origin
               (method git-fetch)
               (uri (git-reference
@@ -31,7 +31,7 @@
               (file-name (string-append name "-" version ".tar.gz"))
               (sha256
                 (base32
-                  "0b8l0lk2klb4cycn89gc3k22yglhmcrgzlmqb4l8khzf2xfs0893"))))
+                  "1nnmb40z2f8vny78jns8y7c95n402806xp4fcbx4qgqxfwj9gl0r"))))
     (build-system cargo-build-system)
     (arguments
       (list #:tests? #f
