@@ -19,11 +19,11 @@
     #:use-module ((guix licenses) #:prefix license:))
 
 (define-public crab-port-git
-    (let ((commit "16f0acd7f01c9724f0f6d22b532ec00930084ba4")
+    (let ((commit "96ca36f29a2e6f2a01bd24e9b7497c9ccbed8f4f")
         (revision "1"))
     (package
         (name "crab-port")
-        (version (git-version "0.1.4" revision commit))
+        (version (git-version "0.1.5" revision commit))
         (source (origin
             (method git-fetch)
             (uri
@@ -31,7 +31,7 @@
                     (url "https://github.com/chi11321/CrabPort.git")
                     (commit commit)
                     (recursive? #t)))
-            (sha256 (base32 "0m9iipfd0fy0rajdpm8zh11rm2dksj3blhqph6ba1g650zmcm8n2"))
+            (sha256 (base32 "0ppccc71jmk6rz9515mj1mhj7kzqsa6ajm0sbjac3ldmz3wkdx3a"))
             (file-name (git-file-name name version))))
         (build-system cargo-build-system)
         (arguments

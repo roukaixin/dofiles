@@ -1649,6 +1649,10 @@
   (crate-source "gpui-animation" "0.2.60"
                 "1b4mmanidap23m2a2mrqd1fgmx0jvp43hv9dahk9lqinia8nx2iw"))
 
+(define rust-gpui-animation-0.2.63
+  (crate-source "gpui-animation" "0.2.63"
+                "1fgvg1l3n5f7k1092gps2473svbkksnfdqhr8bc8mwha8kgfk7g9"))
+
 (define rust-gpui-collections-0.2.2
   (crate-source "gpui_collections" "0.2.2"
                 "071m88rh9hwcdrw0akkksp1vbi9bxzdrd3f09dzfj6r07mnxqfdf"))
@@ -4624,6 +4628,10 @@
   (crate-source "uds_windows" "1.2.1"
                 "0vidqwwfgn8wyzvbxiqil787b4wyqjia50zpdbbjqx7n8wlgpxpj"))
 
+(define rust-unescaper-0.1.10
+  (crate-source "unescaper" "0.1.10"
+                "1x4ch09l9clafjzjgkq320nsd2ypd0gs97z7pkkzaxnfh0xfi1bj"))
+
 (define rust-unescaper-0.1.8
   (crate-source "unescaper" "0.1.8"
                 "13hkl55sgny2kq7p1z6f32fsnjz3y949a3izpljvqza8bilfsr20"))
@@ -5902,7 +5910,6 @@
   (crate-source "zvariant_utils" "3.4.0"
                 "1mn4fa0rvibzxzj32s07xspa82cr2gl6i34xamz58xgsbj8kb18y"))
 
-
 (define rust-zvariant-utils-3.5.0
   (crate-source "zvariant_utils" "3.5.0"
                 "1iy79yppaqsw0pjb8q7b36vivw7qsc1b4n0jg9090lmlz61r7jwh"))
@@ -6156,7 +6163,7 @@
                                  rust-gpu-alloc-ash-0.7.0
                                  rust-gpu-alloc-types-0.3.0
                                  rust-gpui-0.2.2
-                                 rust-gpui-animation-0.2.60
+                                 rust-gpui-animation-0.2.63
                                  rust-gpui-component-0.5.1
                                  rust-gpui-component-macros-0.5.1
                                  rust-gpui-macros-0.2.2
@@ -6219,6 +6226,7 @@
                                  rust-instant-0.1.13
                                  rust-interpolate-name-0.2.4
                                  rust-inventory-0.3.24
+                                 rust-io-kit-sys-0.4.1
                                  rust-io-surface-0.16.1
                                  rust-ipnet-2.12.0
                                  rust-is-docker-0.2.0
@@ -6264,6 +6272,7 @@
                                  rust-lyon-path-1.0.19
                                  rust-lyon-tessellation-1.0.20
                                  rust-mac-0.1.1
+                                 rust-mach2-0.4.3
                                  rust-malloc-buf-0.0.6
                                  rust-markdown-1.0.0
                                  rust-markup5ever-0.12.1
@@ -6287,6 +6296,7 @@
                                  rust-naga-25.0.1
                                  rust-nanorand-0.7.0
                                  rust-new-debug-unreachable-1.0.6
+                                 rust-nix-0.26.4
                                  rust-nix-0.29.0
                                  rust-nix-0.31.3
                                  rust-no-std-io2-0.9.4
@@ -6478,6 +6488,7 @@
                                  rust-serde-spanned-1.1.1
                                  rust-serde-urlencoded-0.7.1
                                  rust-serde-yaml-0.9.34+deprecated
+                                 rust-serialport-4.9.0
                                  rust-sha1-0.10.6
                                  rust-sha1-smol-1.0.1
                                  rust-sha2-0.10.9
@@ -6594,6 +6605,7 @@
                                  rust-typeid-1.0.3
                                  rust-typenum-1.20.1
                                  rust-uds-windows-1.2.1
+                                 rust-unescaper-0.1.10
                                  rust-unicase-2.9.0
                                  rust-unicode-bidi-0.3.18
                                  rust-unicode-bidi-mirroring-0.2.0
