@@ -10,11 +10,11 @@
 
 (define-public wf-config-git
     (let
-        ((commit "85cca14ac889b2f8bbd53569d9751ed2e8f5c079")
+        ((commit "c2368a572f0555b93f2d87aae712c9ffa6f25112")
             (revision "1"))
         (package
           (name "wf-config")
-          (version (git-version "0.10.0" revision commit))
+          (version (git-version "0.11.0" revision commit))
           (source (origin
                     (method git-fetch)
                     (uri (git-reference
@@ -22,7 +22,7 @@
                           (commit commit)))
                     (file-name (git-file-name name version))
                     (sha256 (base32
-                             "15nlqy9z5j8qy5drv7l1wg7zd3a81da661il5bdz1ww1syg2d5w5"))))
+                             "0ij2jhvm3c1p9dix46lvz04n12ccm2hpqfzx7xvlw6h7agvzp8sf"))))
           (build-system meson-build-system)
           (native-inputs (list pkg-config))
           (inputs (list glm libxml2 libevdev))
