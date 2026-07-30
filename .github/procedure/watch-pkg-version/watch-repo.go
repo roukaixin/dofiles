@@ -49,12 +49,18 @@ type RespRelease struct {
 	TagName string `json:"tag_name"`
 }
 
+type PackageInfo struct {
+	pkg     Pkg
+	commit  string
+	release string
+}
+
 var (
 	owner         string
 	repo          string
 	githubToken   string
 	isUpdate      bool
-	updatePackage map[Pkg]string = make(map[Pkg]string)
+	updatePackage []PackageInfo
 )
 
 func init() {
@@ -104,24 +110,23 @@ func main() {
 
 		var issuesBody strings.Builder
 		issuesBody.WriteString("Several packages have new upstream releases:\n\n")
-		issuesBody.WriteString("| Package | Version |\n")
-		issuesBody.WriteString("|---|---|\n")
+		issuesBody.WriteString("| Package | Version | Release |\n")
+		issuesBody.WriteString("|---|---|---|\n")
 
-		for pkg, version := range updatePackage {
-			title.WriteString(pkg.Package)
+		for _, pkgInfo := range updatePackage {
+			var p string = pkgInfo.pkg.Package
+			title.WriteString(p)
 			title.WriteString(" ")
-			var homePage string = pkg.HomePage
-			var pkgInfo string
+			var homePage string = pkgInfo.pkg.HomePage
 			if len(homePage) > 0 {
-				pkgInfo = fmt.Sprintf("[%s](%s)", pkg.Package, pkg.HomePage)
-			} else {
-				pkgInfo = pkg.Package
+				p = fmt.Sprintf("[%s](%s)", p, homePage)
 			}
 			_, err := fmt.Fprintf(
 				&issuesBody,
-				"| %s | %s |\n",
+				"| %s | %s | %s |\n",
 				pkgInfo,
-				version,
+				pkgInfo.commit,
+				pkgInfo.release,
 			)
 			if err != nil {
 				panic(err)
@@ -198,11 +203,19 @@ func GetLatestRelease(pkg Pkg, statusMap *map[string]string) {
 		if ok {
 			if newRelease != value {
 				isUpdate = true
-				updatePackage[pkg] = newRelease
+				updatePackage = append(updatePackage, PackageInfo{
+					pkg:     pkg,
+					commit:  "",
+					release: newRelease,
+				})
 			}
 		} else if len(newRelease) > 0 {
 			isUpdate = true
-			updatePackage[pkg] = newRelease
+			updatePackage = append(updatePackage, PackageInfo{
+				pkg:     pkg,
+				commit:  "",
+				release: newRelease,
+			})
 		}
 		(*statusMap)[key] = newRelease
 	}
@@ -238,16 +251,57 @@ func GetNewCommit(pkg Pkg, statusMap *map[string]string) {
 		newCommit := respBody.Object.Sha
 		var key string = pkg.Repo + ":" + pkg.Type + ":" + pkg.Branch
 		value, ok := (*statusMap)[key]
+		var release string = GetLatestReleaseVersion(pkg)
 		if ok {
 			if newCommit != value {
 				// 有更新
 				isUpdate = true
-				updatePackage[pkg] = newCommit
+				updatePackage = append(updatePackage, PackageInfo{
+					pkg:     pkg,
+					commit:  newCommit,
+					release: release,
+				})
 			}
 		} else if len(newCommit) > 0 {
 			isUpdate = true
-			updatePackage[pkg] = newCommit
+			updatePackage = append(updatePackage, PackageInfo{
+				pkg:     pkg,
+				commit:  newCommit,
+				release: release,
+			})
 		}
 		(*statusMap)[key] = newCommit
 	}
+}
+
+func GetLatestReleaseVersion(pkg Pkg) (newRelease string) {
+	var url string = fmt.Sprintf(ReleasesLatestApi, pkg.Repo)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+	}
+	if len(githubToken) > 0 {
+		req.Header.Set("Authorization", "token "+githubToken)
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("%#v\n", err)
+	}
+	if resp.StatusCode == 200 {
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+				fmt.Printf("%#v\n", err)
+			}
+		}(resp.Body)
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Printf("%#v\n", err)
+		}
+		var respRelease RespRelease
+		_ = json.Unmarshal(body, &respRelease)
+		newRelease = respRelease.TagName
+	}
+	return
 }
