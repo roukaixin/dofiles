@@ -3,7 +3,8 @@
         "repo": "emoeem/voicefox",
         "branch": "main",
         "type": "branch",
-        "package": "voicefox"
+        "package": "voicefox",
+        "homePage": "https://github.com/emoeem/voicefox"
     },
     {
         "repo": "jeff141/meatshell",
@@ -20,12 +21,14 @@
         "repo": "WayfireWM/wayfire",
         "branch": "master",
         "type": "branch",
-        "package": "wayfire"
+        "package": "wayfire",
+        "homePage": "https://github.com/WayfireWM/wayfire"
     },
     {
         "repo": "WayfireWM/wf-shell",
         "branch": "master",
         "type": "branch",
-        "package": "wf-shell"
+        "package": "wf-shell",
+        "homePage": "https://github.com/WayfireWM/wf-shell"
     }
 ]

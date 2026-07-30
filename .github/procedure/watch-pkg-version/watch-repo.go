@@ -25,10 +25,11 @@ const WatchPackageList string = "procedure/watch-pkg-version/package-list.json"
 const WatchPackageStatus string = "procedure/watch-pkg-version/upstream-status.json"
 
 type Pkg struct {
-	Type    string `json:"type"`
-	Repo    string `json:"repo"`
-	Branch  string `json:"branch"`
-	Package string `json:"package"`
+	Type     string `json:"type"`
+	Repo     string `json:"repo"`
+	Branch   string `json:"branch"`
+	Package  string `json:"package"`
+	HomePage string `json:"homePage"`
 }
 
 type Object struct {
@@ -109,10 +110,17 @@ func main() {
 		for pkg, version := range updatePackage {
 			title.WriteString(pkg.Package)
 			title.WriteString(" ")
+			var homePage string = pkg.HomePage
+			var pkgInfo string
+			if len(homePage) > 0 {
+				pkgInfo = fmt.Sprintf("[%s](%s)", pkg.Package, pkg.HomePage)
+			} else {
+				pkgInfo = pkg.Package
+			}
 			_, err := fmt.Fprintf(
 				&issuesBody,
 				"| %s | %s |\n",
-				pkg.Package,
+				pkgInfo,
 				version,
 			)
 			if err != nil {
