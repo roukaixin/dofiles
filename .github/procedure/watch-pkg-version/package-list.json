@@ -1,37 +1,31 @@
 [
-  {
-    "repo": "emoeem/voicefox",
-    "branch": "main",
-    "type": "branch",
-    "package": "voicefox"
-  },
-  {
-    "repo": "jeff141/meatshell",
-    "type": "release",
-    "package": "meatshell"
-  },
-  {
-    "repo": "chi11321/CrabPort",
-    "branch": "main",
-    "type": "branch",
-    "package": "crab-port"
-  },
-  {
-    "repo": "chi11321/CrabPort",
-    "branch": "main",
-    "type": "branch",
-    "package": "crab-port"
-  },
-  {
-    "repo": "WayfireWM/wayfire",
-    "branch": "main",
-    "type": "master",
-    "package": "wayfire"
-  },
-  {
-    "repo": "WayfireWM/wf-shell",
-    "branch": "main",
-    "type": "master",
-    "package": "wf-shell"
-  }
+    {
+        "repo": "emoeem/voicefox",
+        "branch": "main",
+        "type": "branch",
+        "package": "voicefox"
+    },
+    {
+        "repo": "jeff141/meatshell",
+        "type": "release",
+        "package": "meatshell"
+    },
+    {
+        "repo": "chi11321/CrabPort",
+        "branch": "main",
+        "type": "branch",
+        "package": "crab-port"
+    },
+    {
+        "repo": "WayfireWM/wayfire",
+        "branch": "master",
+        "type": "branch",
+        "package": "wayfire"
+    },
+    {
+        "repo": "WayfireWM/wf-shell",
+        "branch": "master",
+        "type": "branch",
+        "package": "wf-shell"
+    }
 ]
