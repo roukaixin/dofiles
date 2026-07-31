@@ -26,11 +26,11 @@
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public wayfire-git
-    (let ((commit "ce00f0f02879ca6916c47ed029f4fd6accb6700f")
-        (revision "1"))
+    (let ((commit "a352aa3b010d79b33e55374015ffe67752dc5b98")
+        (revision "2"))
     (package
         (name "wayfire")
-        (version (git-version "0.11" revision commit))
+        (version (git-version "0.11.0" revision commit))
         (source (origin
             (method git-fetch)
             (uri
@@ -38,7 +38,7 @@
                     (url "https://github.com/WayfireWM/wayfire.git")
                     (commit commit)
                     (recursive? #t)))
-            (sha256 (base32 "0qkgzgqs886nkg9kr8gqsd0i5znnaipawhap6r25h26pdq6kb8wk"))
+            (sha256 (base32 "00bbbnskwv6z5aa64fz31qbdcyi07ll4hvhfc56dy1cbbgc7apyi"))
             (file-name (git-file-name name version))
             (modules '((guix build utils)))))
         (build-system meson-build-system)
