@@ -25,6 +25,13 @@
         "homePage": "https://github.com/WayfireWM/wayfire"
     },
     {
+        "repo": "WayfireWM/wf-config",
+        "branch": "master",
+        "type": "branch",
+        "package": "wf-config",
+        "homePage": "https://github.com/WayfireWM/wf-config"
+    },
+    {
         "repo": "WayfireWM/wf-shell",
         "branch": "master",
         "type": "branch",

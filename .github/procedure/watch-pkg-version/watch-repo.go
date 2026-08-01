@@ -124,7 +124,7 @@ func main() {
 			_, err := fmt.Fprintf(
 				&issuesBody,
 				"| %s | %s | %s |\n",
-				pkgInfo,
+				p,
 				pkgInfo.commit,
 				pkgInfo.release,
 			)
