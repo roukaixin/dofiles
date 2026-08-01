@@ -47,7 +47,11 @@
                     (("/etc/pam.d/")
                      (string-append #$output "/etc/pam.d/"))
                     (("/etc/xdg/xdg-desktop-portal-wlr/")
-                     (string-append #$output "/etc/xdg/xdg-desktop-portal-wlr/"))))))))
+                     (string-append #$output "/etc/xdg/xdg-desktop-portal-wlr/")))))
+              (add-after 'install 'delete-desktop
+                  (lambda* (#:key outputs #:allow-other-keys)
+                      (let ((out (assoc-ref outputs "out")))
+                          (delete-file (string-append out "/share/applications/wf-locker-pin.desktop"))))))))
         (native-inputs (list pkg-config
                              wayland
                              wayland-protocols

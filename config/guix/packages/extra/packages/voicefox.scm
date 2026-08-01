@@ -2,6 +2,7 @@
   #:use-module (gnu packages video)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages tls)
+  #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system cargo)
@@ -25,7 +26,31 @@
         (arguments
             (list #:tests? #f
                   #:install-source? #f
-                  #:cargo-install-paths ''("app")))
+                  #:cargo-install-paths ''("app")
+                  #:phases
+                  #~(modify-phases %standard-phases
+                      (add-after 'install 'install-icon
+                          (lambda* (#:key outputs #:allow-other-keys)
+                              (let* ((out (assoc-ref outputs "out"))
+                                    (icon (string-append out "/share/icons/hicolor")))
+                                  (mkdir-p (string-append icon "/512x512/apps"))
+                                  (copy-file "icons/512.png" (string-append icon "/512x512/apps/" #$name ".png"))
+                                  (mkdir-p (string-append icon "/1024x1024/apps"))
+                                  (copy-file "icons/1024.png" (string-append icon "/1024x1024/apps/" #$name ".png")))))
+                      (add-after 'install-icon 'install-desktop-file
+                          (lambda* (#:key outputs #:allow-other-keys)
+                              (let ((out (assoc-ref outputs "out")))
+                                  (make-desktop-entry-file
+                                      (string-append out "/share/applications/" #$name ".desktop")
+                                      #:type "Application"
+                                      #:name #$name
+                                      #:comment "Terminal music player"
+                                      #:exec (string-append out "/bin/voicefox")
+                                      #:icon "voicefox"
+                                      #:terminal #t
+                                      #:categories '("AudioVideo" "Audio" "Player")
+                                      #:keywords '("music" "audio" "player" "tui")
+                                      #:startup-notify #f)))))))
         (native-inputs
             (list pkg-config
                   openssl))
