@@ -9,18 +9,18 @@
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public voicefox
-    (let ((commit "3c332cb624dc53b8ec140fa39ae103231e619044")
+    (let ((commit "ca22c3e5916dc8608213bc1d2699e6c190102dcd")
         (revision "1"))
     (package
         (name "voicefox")
-        (version (git-version "1.6" revision commit))
+        (version (git-version "1.7" revision commit))
         (source (origin
             (method git-fetch)
             (uri
                 (git-reference
                     (url "https://github.com/emoeem/voicefox.git")
                     (commit commit)))
-            (sha256 (base32 "09cg7f1a4jzh5q0zzzrdhcfa4pwmzfnii4h3mg0bh6017v5yzvd2"))
+            (sha256 (base32 "174mjcyph6irc94x1cc8jivkhjay2jqlf9zpbsa4qvdavx7jskc1"))
             (file-name (git-file-name name version))))
         (build-system cargo-build-system)
         (arguments
