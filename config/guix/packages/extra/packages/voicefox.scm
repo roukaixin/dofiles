@@ -9,18 +9,18 @@
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public voicefox
-    (let ((commit "1bb56ba7a264f598609c9f9e9c5f88c38737fab8")
+    (let ((commit "0e150c809ff546c64bc019521f607a3e9883c2b7")
         (revision "1"))
     (package
         (name "voicefox")
-        (version (git-version "1.9" revision commit))
+        (version (git-version "2.1" revision commit))
         (source (origin
             (method git-fetch)
             (uri
                 (git-reference
                     (url "https://github.com/emoeem/voicefox.git")
                     (commit commit)))
-            (sha256 (base32 "0fp7lkbjgxx5fswhhk50wy9zag2nag6vc0bc5m2jlm7fv3sx8lds"))
+            (sha256 (base32 "1h9517bas2d2w6qcgfgdrpq9rjjhlq7rj7nrvm70nix0znx04wri"))
             (file-name (git-file-name name version))))
         (build-system cargo-build-system)
         (arguments
@@ -57,11 +57,10 @@
         (inputs
             (append
               (cargo-inputs 'voicefox
-                #:module '(extra packages rust-crates))))
-        (propagated-inputs
-            (list mpv))
-        (synopsis "voicefox")
-        (description "voicefox")
+                #:module '(extra packages rust-crates))
+              (list mpv)))
+        (synopsis "一个 TUI 的音源播放软件")
+        (description "voicefox 是一个运行在终端中的音乐播放器，使用 Rust 编写，基于 ratatui 构建界面，通过 libmpv 播放音频。支持多音源搜索、在线播放、歌词显示、收藏管理等功能。")
         (home-page "https://github.com/emoeem/voicefox")
         (license
           (list license:expat)))))

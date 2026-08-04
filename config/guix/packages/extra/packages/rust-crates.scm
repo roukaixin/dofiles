@@ -1146,10 +1146,6 @@
   (crate-source "dlv-list" "0.3.0"
                 "0mqj5rdkcjksw3kvjj0nga6rzcpppx0kimjwi527yhifz6kw5206"))
 
-(define rust-doctest-file-1.1.1
-  (crate-source "doctest-file" "1.1.1"
-                "0nfkscv8gf3ixhradrmwm3f2p6sc0ab0psah7c8976ha9zkh9ny2"))
-
 (define rust-document-features-0.2.12
   (crate-source "document-features" "0.2.12"
                 "0qcgpialq3zgvjmsvar9n6v10rfbv6mk6ajl46dd4pj5hn3aif6l"))
@@ -2115,10 +2111,6 @@
   (crate-source "interpolate_name" "0.2.4"
                 "0q7s5mrfkx4p56dl8q9zq71y1ysdj4shh6f28qf9gly35l21jj63"))
 
-(define rust-interprocess-2.4.2
-  (crate-source "interprocess" "2.4.2"
-                "0nsr54v0i2ac0cfnccf5ks8vcdhxj7nw3rcgdaq7mjq06is274q6"))
-
 (define rust-inventory-0.3.24
   (crate-source "inventory" "0.3.24"
                 "16y3vbab2ld8ykjap1xxwk001jliyqsj8np57zpcrx7jfq6c7w54"))
@@ -2334,6 +2326,15 @@
 (define rust-libm-0.2.16
   (crate-source "libm" "0.2.16"
                 "10brh0a3qjmbzkr5mf5xqi887nhs5y9layvnki89ykz9xb1wxlmn"))
+
+(define rust-libmpv2-6.0.0
+  (crate-source "libmpv2" "6.0.0"
+                "0w2y8i26kfw5bfd3a25xv8gqjbc2nbcd2j9j8m26v1lvqb0l8g9z"))
+
+(define rust-libmpv2-sys-4.0.1
+  ;; TODO REVIEW: Check bundled sources.
+  (crate-source "libmpv2-sys" "4.0.1"
+                "1r21d0vzzyq67lz44m1qinp8fldp33s6zjhd1ckpssqpwymjrczd"))
 
 (define rust-libredox-0.1.10
   (crate-source "libredox" "0.1.10"
@@ -3591,10 +3592,6 @@
 (define rust-reborrow-0.5.5
   (crate-source "reborrow" "0.5.5"
                 "0c14ccj3fdf47a1ya21bkxqv7s2hxrcfhaw98aqd6jqg029i2983"))
-
-(define rust-recvmsg-1.0.0
-  (crate-source "recvmsg" "1.0.0"
-                "0xa173gbg1cx8q7wyzi6c4kmcsz5rka68r4jb6kg14icskax9vfk"))
 
 (define rust-redox-syscall-0.2.16
   (crate-source "redox_syscall" "0.2.16"
@@ -5402,10 +5399,6 @@
 (define rust-wide-0.8.3
   (crate-source "wide" "0.8.3"
                 "1277lyj1q3sb3gf1fg7ys430xaq9xb0gdz4fqi4n2y744s6r1jhk"))
-
-(define rust-widestring-1.2.1
-  (crate-source "widestring" "1.2.1"
-                "0wg4qdbs70xqnlbm8wb0bs4idm2mxk3b6kaqwllsncmb2cqrq1kj"))
 
 (define rust-winapi-0.3.9
   (crate-source "winapi" "0.3.9"
@@ -8242,7 +8235,6 @@
                                      rust-dirs-6.0.0
                                      rust-dirs-sys-0.5.0
                                      rust-displaydoc-0.2.6
-                                     rust-doctest-file-1.1.1
                                      rust-document-features-0.2.12
                                      rust-either-1.16.0
                                      rust-encoding-rs-0.8.35
@@ -8323,7 +8315,6 @@
                                      rust-inout-0.1.4
                                      rust-instability-0.3.12
                                      rust-interpolate-name-0.2.4
-                                     rust-interprocess-2.4.2
                                      rust-ipnet-2.12.0
                                      rust-is-terminal-polyfill-1.70.2
                                      rust-itertools-0.14.0
@@ -8337,6 +8328,8 @@
                                      rust-libc-0.2.186
                                      rust-libfuzzer-sys-0.4.13
                                      rust-libm-0.2.16
+                                     rust-libmpv2-6.0.0
+                                     rust-libmpv2-sys-4.0.1
                                      rust-libredox-0.1.18
                                      rust-line-clipping-0.3.7
                                      rust-linux-raw-sys-0.4.15
@@ -8457,7 +8450,6 @@
                                      rust-rayon-1.12.0
                                      rust-rayon-core-1.13.0
                                      rust-reborrow-0.5.5
-                                     rust-recvmsg-1.0.0
                                      rust-redox-syscall-0.5.18
                                      rust-redox-users-0.5.2
                                      rust-ref-cast-1.0.26
@@ -8596,7 +8588,6 @@
                                      rust-wezterm-dynamic-derive-0.1.1
                                      rust-wezterm-input-types-0.1.0
                                      rust-wide-0.8.3
-                                     rust-widestring-1.2.1
                                      rust-winapi-0.3.9
                                      rust-winapi-i686-pc-windows-gnu-0.4.0
                                      rust-winapi-util-0.1.11
