@@ -37,5 +37,19 @@
         "type": "branch",
         "package": "wf-shell",
         "homePage": "https://github.com/WayfireWM/wf-shell"
+    },
+    {
+        "repo": "WayfireWM/wayfire-plugins-extra",
+        "branch": "master",
+        "type": "branch",
+        "package": "wayfire-plugins-extra",
+        "homePage": "https://github.com/WayfireWM/wayfire-plugins-extra"
+    },
+    {
+        "repo": "soreau/wf-copy-capture",
+        "branch": "master",
+        "type": "branch",
+        "package": "wf-copy-capture",
+        "homePage": "https://github.com/soreau/wf-copy-capture"
     }
 ]
