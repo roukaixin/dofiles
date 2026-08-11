@@ -22,8 +22,8 @@
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public wf-shell-git
-    (let ((commit "881ef973039f239dc0a3ec8a547201a89b0eef8a")
-        (revision "1"))
+    (let ((commit "5a6f89fe9a0721f3a308919a19d1301519c6c6f5")
+        (revision "2"))
     (package
         (name "wf-shell")
         (version (git-version "0.11.0" revision commit))
@@ -34,20 +34,13 @@
                     (url "https://github.com/WayfireWM/wf-shell.git")
                     (commit commit)
                     (recursive? #t)))
-            (sha256 (base32 "0snvrwxxw7vi2pr223061656rnfp81z3mgvga6harqhsdl4n6wyl"))
+            (sha256 (base32 "1vqn0iz18xfif6sv0pxlldflx4g7vxyssrcmnms9apxz5h6zg8c9"))
             (file-name (git-file-name name version))))
         (build-system meson-build-system)
         (arguments
          (list
           #:phases
           #~(modify-phases %standard-phases
-              (add-after 'unpack 'patch-install-paths
-                (lambda _
-                  (substitute* "data/meson.build"
-                    (("/etc/pam.d/")
-                     (string-append #$output "/etc/pam.d/"))
-                    (("/etc/xdg/xdg-desktop-portal-wlr/")
-                     (string-append #$output "/etc/xdg/xdg-desktop-portal-wlr/")))))
               (add-after 'install 'delete-desktop
                   (lambda* (#:key outputs #:allow-other-keys)
                       (let ((out (assoc-ref outputs "out")))
