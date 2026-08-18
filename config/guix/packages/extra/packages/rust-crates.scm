@@ -987,6 +987,10 @@
   (crate-source "ctr" "0.9.2"
                 "0d88b73waamgpfjdml78icxz45d95q7vi2aqa604b0visqdfws83"))
 
+(define rust-cue-rw-0.2.1
+  (crate-source "cue-rw" "0.2.1"
+                "1530iiv5vki15shgxbd3mdqim4rlnrih61g4cdz1zvmr9nys1k7m"))
+
 (define rust-cursor-icon-1.2.0
   (crate-source "cursor-icon" "1.2.0"
                 "0bvkw7ak1mqwcpkgd9lh7n00hcvlh87jfl7188f231nz6zfy2ypj"))
@@ -2077,10 +2081,19 @@
   (crate-source "inotify" "0.11.0"
                 "1wq8m657rl085cg59p38sc5y62xy9yhhpvxbkd7n1awi4zzwqzgk"))
 
+(define rust-inotify-0.11.4
+  (crate-source "inotify" "0.11.4"
+                "1j7jkacw6cxra4jf1sbndkpkbm5qm0bvxpcms36cjghq3aaf2fqm"))
+
 (define rust-inotify-sys-0.1.5
   ;; TODO REVIEW: Check bundled sources.
   (crate-source "inotify-sys" "0.1.5"
                 "1syhjgvkram88my04kv03s0zwa66mdwa5v7ddja3pzwvx2sh4p70"))
+
+(define rust-inotify-sys-0.1.8
+  ;; TODO REVIEW: Check bundled sources.
+  (crate-source "inotify-sys" "0.1.8"
+                "0zgkxmqa7wlsc348166rr9np4560rflzlcvsmf8xyg0i5h5zhcy0"))
 
 (define rust-inout-0.1.4
   (crate-source "inout" "0.1.4"
@@ -2254,6 +2267,10 @@
 (define rust-kqueue-1.2.0
   (crate-source "kqueue" "1.2.0"
                 "1dc7rm23i7s1574xx185836rxyzynrsv5wkn96nf0649f990fg17"))
+
+(define rust-kqueue-1.2.1
+  (crate-source "kqueue" "1.2.1"
+                "1sj11bbz5kx73m0bzkmwzfmmlxjnh4q94v6ya3gls2qj4idkwxld"))
 
 (define rust-kqueue-sys-1.0.4
   ;; TODO REVIEW: Check bundled sources.
@@ -2714,6 +2731,10 @@
 (define rust-notify-types-2.0.0
   (crate-source "notify-types" "2.0.0"
                 "0pcjm3wnvb7pvzw6mn89csv64ip0xhx857kr8jic5vddi6ljc22y"))
+
+(define rust-notify-types-2.1.0
+  (crate-source "notify-types" "2.1.0"
+                "0yj710mxd4lsaz4hq7601mh6xb02awb8hg4z6lvh76ik1vpczf22"))
 
 (define rust-ntapi-0.4.3
   (crate-source "ntapi" "0.4.3"
@@ -8222,6 +8243,7 @@
                                      rust-crunchy-0.2.4
                                      rust-crypto-common-0.1.7
                                      rust-csscolorparser-0.6.2
+                                     rust-cue-rw-0.2.1
                                      rust-darling-0.23.0
                                      rust-darling-core-0.23.0
                                      rust-darling-macro-0.23.0
@@ -8265,6 +8287,7 @@
                                      rust-foreign-types-0.3.2
                                      rust-foreign-types-shared-0.1.1
                                      rust-form-urlencoded-1.2.2
+                                     rust-fsevent-sys-4.1.0
                                      rust-funty-2.0.0
                                      rust-futures-channel-0.3.32
                                      rust-futures-core-0.3.32
@@ -8312,16 +8335,21 @@
                                      rust-imgref-1.12.2
                                      rust-indexmap-2.14.0
                                      rust-indoc-2.0.7
+                                     rust-inotify-0.11.4
+                                     rust-inotify-sys-0.1.8
                                      rust-inout-0.1.4
                                      rust-instability-0.3.12
                                      rust-interpolate-name-0.2.4
                                      rust-ipnet-2.12.0
                                      rust-is-terminal-polyfill-1.70.2
+                                     rust-itertools-0.13.0
                                      rust-itertools-0.14.0
                                      rust-itoa-1.0.18
                                      rust-jobserver-0.1.35
                                      rust-js-sys-0.3.103
                                      rust-kasuari-0.4.12
+                                     rust-kqueue-1.2.1
+                                     rust-kqueue-sys-1.1.2
                                      rust-lab-0.11.0
                                      rust-lazy-static-1.5.0
                                      rust-lebe-0.5.3
@@ -8363,6 +8391,8 @@
                                      rust-nom-7.1.3
                                      rust-nom-8.0.0
                                      rust-noop-proc-macro-0.3.0
+                                     rust-notify-8.2.0
+                                     rust-notify-types-2.1.0
                                      rust-nu-ansi-term-0.50.3
                                      rust-num-bigint-0.4.8
                                      rust-num-complex-0.4.6
@@ -8607,16 +8637,26 @@
                                      rust-windows-strings-0.5.1
                                      rust-windows-sys-0.52.0
                                      rust-windows-sys-0.59.0
+                                     rust-windows-sys-0.60.2
                                      rust-windows-sys-0.61.2
                                      rust-windows-targets-0.52.6
+                                     rust-windows-targets-0.53.5
                                      rust-windows-aarch64-gnullvm-0.52.6
+                                     rust-windows-aarch64-gnullvm-0.53.1
                                      rust-windows-aarch64-msvc-0.52.6
+                                     rust-windows-aarch64-msvc-0.53.1
                                      rust-windows-i686-gnu-0.52.6
+                                     rust-windows-i686-gnu-0.53.1
                                      rust-windows-i686-gnullvm-0.52.6
+                                     rust-windows-i686-gnullvm-0.53.1
                                      rust-windows-i686-msvc-0.52.6
+                                     rust-windows-i686-msvc-0.53.1
                                      rust-windows-x86-64-gnu-0.52.6
+                                     rust-windows-x86-64-gnu-0.53.1
                                      rust-windows-x86-64-gnullvm-0.52.6
+                                     rust-windows-x86-64-gnullvm-0.53.1
                                      rust-windows-x86-64-msvc-0.52.6
+                                     rust-windows-x86-64-msvc-0.53.1
                                      rust-winnow-0.7.15
                                      rust-winnow-1.0.4
                                      rust-wit-bindgen-0.57.1
