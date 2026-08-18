@@ -22,8 +22,8 @@
   #:use-module ((guix licenses) #:prefix license:))
 
 (define-public wf-shell-git
-    (let ((commit "5a6f89fe9a0721f3a308919a19d1301519c6c6f5")
-        (revision "2"))
+    (let ((commit "5cddd0d72092ea2f34f067d67e43a120e08bf3fb")
+        (revision "3"))
     (package
         (name "wf-shell")
         (version (git-version "0.11.0" revision commit))
@@ -34,7 +34,7 @@
                     (url "https://github.com/WayfireWM/wf-shell.git")
                     (commit commit)
                     (recursive? #t)))
-            (sha256 (base32 "1vqn0iz18xfif6sv0pxlldflx4g7vxyssrcmnms9apxz5h6zg8c9"))
+            (sha256 (base32 "1h005sf389wwrb8wfj6mpy7qj8nsz472d6fcppq4lg72msk37zvy"))
             (file-name (git-file-name name version))))
         (build-system meson-build-system)
         (arguments
