@@ -7230,6 +7230,7 @@
                                  rust-ed25519-dalek-2.2.0
                                  rust-either-1.15.0
                                  rust-elliptic-curve-0.13.8
+                                 rust-encoding-rs-0.8.35
                                  rust-endi-1.1.1
                                  rust-enumflags2-0.7.12
                                  rust-enumflags2-derive-0.7.12
