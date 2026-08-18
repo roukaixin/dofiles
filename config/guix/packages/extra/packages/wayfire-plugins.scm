@@ -64,11 +64,11 @@
 
 
 (define-public wayfire-plugins-extra
-    (let ((commit "4290ddf13bfadb344d45cb25c47f7825bbdc8a30")
+    (let ((commit "ec89a23f37705ae3c3a6020289148c451d7817a3")
         (revision "1"))
     (package
         (name "wayfire-plugins-extra")
-        (version (git-version "0.10.0" revision commit))
+        (version (git-version "0.11.2" revision commit))
         (source
             (origin
                 (method git-fetch)
@@ -78,7 +78,7 @@
                         (commit commit)
                         (recursive? #t)))
                 (sha256
-                    (base32 "19irpqpsl6k39gcgjm3m6ichmrcr2ic6gccgw90hk5kchq3qc40y"))
+                    (base32 "0sqsm8jj1b9xp1vwhdw2s5mbw969r1ny9bqihdj0dq69m28k5r3a"))
                 (file-name (git-file-name name version))))
         (build-system meson-build-system)
         (arguments
