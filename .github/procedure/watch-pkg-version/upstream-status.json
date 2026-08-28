@@ -1,10 +1,10 @@
 {
   "WayfireWM/wayfire-plugins-extra:branch:master": "ec89a23f37705ae3c3a6020289148c451d7817a3",
-  "WayfireWM/wayfire:branch:master": "4c34a7bf0786eb11d62cff4fae7cfd1e54836765",
+  "WayfireWM/wayfire:branch:master": "1287ff2d5ae48cea835793e2230e1526e8089980",
   "WayfireWM/wf-config:branch:master": "add9ba7a47492d4f86482b0a308d9054a825637e",
   "WayfireWM/wf-shell:branch:master": "5cddd0d72092ea2f34f067d67e43a120e08bf3fb",
   "chi11321/CrabPort:branch:main": "96ca36f29a2e6f2a01bd24e9b7497c9ccbed8f4f",
-  "emoeem/voicefox:branch:main": "ada33537d8e762555d314ff9f31491e0b0d1e89c",
-  "jeff141/meatshell:release": "v0.6.14",
+  "emoeem/voicefox:branch:main": "222b6cd79d0266cfd2003529494163d5f4f96ffe",
+  "jeff141/meatshell:release": "v0.7.1",
   "soreau/wf-copy-capture:branch:master": "8b1f145bf5daf7ed4f21913a9c2f40ecd5c97ceb"
 }
